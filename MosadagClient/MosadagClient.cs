@@ -789,52 +789,52 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response
     {
-        [Newtonsoft.Json.JsonProperty("Deleted", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Deleted")]
         public bool Deleted { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Email", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Email")]
         public string Email { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("ErrorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("ErrorMessage")]
         public object ErrorMessage { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("FirstName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("FirstName")]
         public string FirstName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IsActive")]
         public bool IsActive { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IsAdmin", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IsAdmin")]
         public bool IsAdmin { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IsVendor", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IsVendor")]
         public bool IsVendor { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LastName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LastName")]
         public string LastName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LoginResults", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LoginResults")]
         public string LoginResults { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LoginResultsCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LoginResultsCode")]
         public double LoginResultsCode { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Phone", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Phone")]
         public string Phone { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("RefreshToken", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("RefreshToken")]
         public string RefreshToken { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Token", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Token")]
         public string Token { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("UserId")]
         public double UserId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("UserName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("UserName")]
         public string UserName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("VendorId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("VendorId")]
         public double VendorId { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -851,52 +851,52 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response2
     {
-        [Newtonsoft.Json.JsonProperty("Deleted", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Deleted")]
         public bool Deleted { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Email", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Email")]
         public object Email { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("ErrorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("ErrorMessage")]
         public object ErrorMessage { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("FirstName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("FirstName")]
         public object FirstName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IsActive")]
         public bool IsActive { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IsAdmin", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IsAdmin")]
         public bool IsAdmin { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IsVendor", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IsVendor")]
         public bool IsVendor { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LastName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LastName")]
         public object LastName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LoginResults", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LoginResults")]
         public string LoginResults { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LoginResultsCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LoginResultsCode")]
         public double LoginResultsCode { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Phone", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Phone")]
         public object Phone { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("RefreshToken", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("RefreshToken")]
         public object RefreshToken { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Token", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Token")]
         public object Token { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("UserId")]
         public double UserId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("UserName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("UserName")]
         public object UserName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("VendorId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("VendorId")]
         public double VendorId { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -913,10 +913,10 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response3
     {
-        [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Errors")]
         public System.Collections.Generic.ICollection<object> Errors { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Success", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Success")]
         public bool Success { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -933,22 +933,22 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response4
     {
-        [Newtonsoft.Json.JsonProperty("detail", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("detail")]
         public string Detail { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("errors")]
         public object Errors { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("status")]
         public double Status { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("traceId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("traceId")]
         public string TraceId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("type")]
         public string Type { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -965,145 +965,145 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response5
     {
-        [Newtonsoft.Json.JsonProperty("Active", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Active")]
         public bool Active { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("AdminComment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("AdminComment")]
         public object AdminComment { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("AffiliateId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("AffiliateId")]
         public double AffiliateId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("BillingAddressId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("BillingAddressId")]
         public double BillingAddressId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CannotLoginUntilDateUtc", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("CannotLoginUntilDateUtc")]
         public object CannotLoginUntilDateUtc { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("City", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("City")]
         public object City { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Company", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Company")]
         public string Company { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CountryId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("CountryId")]
         public double CountryId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("County", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("County")]
         public object County { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CreatedOnUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("CreatedOnUtc")]
         public string CreatedOnUtc { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CurrencyId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("CurrencyId")]
         public object CurrencyId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CustomCustomerAttributesXML", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("CustomCustomerAttributesXML")]
         public string CustomCustomerAttributesXML { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CustomerGuid", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("CustomerGuid")]
         public string CustomerGuid { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("DateOfBirth", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("DateOfBirth")]
         public string DateOfBirth { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Deleted", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Deleted")]
         public bool Deleted { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Email", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Email")]
         public string Email { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("EmailToRevalidate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("EmailToRevalidate")]
         public object EmailToRevalidate { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("FailedLoginAttempts", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("FailedLoginAttempts")]
         public double FailedLoginAttempts { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Fax", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Fax")]
         public object Fax { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("FirstName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("FirstName")]
         public string FirstName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Gender", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Gender")]
         public object Gender { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("HasShoppingCartItems", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("HasShoppingCartItems")]
         public bool HasShoppingCartItems { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Id")]
         public double Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IsSystemAccount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IsSystemAccount")]
         public bool IsSystemAccount { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IsTaxExempt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IsTaxExempt")]
         public bool IsTaxExempt { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LanguageId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LanguageId")]
         public object LanguageId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LastActivityDateUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LastActivityDateUtc")]
         public string LastActivityDateUtc { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LastIpAddress", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LastIpAddress")]
         public string LastIpAddress { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LastLoginDateUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LastLoginDateUtc")]
         public string LastLoginDateUtc { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LastName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LastName")]
         public string LastName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Phone", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Phone")]
         public string Phone { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("RegisteredInStoreId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("RegisteredInStoreId")]
         public double RegisteredInStoreId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("RequireReLogin", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("RequireReLogin")]
         public bool RequireReLogin { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("ShippingAddressId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("ShippingAddressId")]
         public double ShippingAddressId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("StateProvinceId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("StateProvinceId")]
         public double StateProvinceId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("StreetAddress", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("StreetAddress")]
         public object StreetAddress { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("StreetAddress2", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("StreetAddress2")]
         public object StreetAddress2 { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("SystemName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("SystemName")]
         public object SystemName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("TaxDisplayType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("TaxDisplayType")]
         public object TaxDisplayType { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("TaxDisplayTypeId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("TaxDisplayTypeId")]
         public object TaxDisplayTypeId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("TimeZoneId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("TimeZoneId")]
         public object TimeZoneId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Username", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Username")]
         public string Username { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("VatNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("VatNumber")]
         public object VatNumber { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("VatNumberStatus", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("VatNumberStatus")]
         public double VatNumberStatus { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("VatNumberStatusId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("VatNumberStatusId")]
         public double VatNumberStatusId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("VendorId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("VendorId")]
         public double VendorId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("ZipPostalCode", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("ZipPostalCode")]
         public object ZipPostalCode { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -1120,34 +1120,34 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response6
     {
-        [Newtonsoft.Json.JsonProperty("AppId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("AppId")]
         public object AppId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CustomerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("CustomerId")]
         public double CustomerId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("DeviceHash", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("DeviceHash")]
         public string DeviceHash { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Expiry", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Expiry")]
         public string Expiry { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Features", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Features")]
         public object Features { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Id")]
         public double Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IssuedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IssuedAt")]
         public string IssuedAt { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IssuedTo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IssuedTo")]
         public string IssuedTo { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LicenseType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LicenseType")]
         public object LicenseType { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("MinimumVersion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("MinimumVersion")]
         public string MinimumVersion { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -1164,22 +1164,22 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response7
     {
-        [Newtonsoft.Json.JsonProperty("detail", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("detail")]
         public string Detail { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("errors")]
         public object Errors { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("status")]
         public double Status { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("traceId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("traceId")]
         public string TraceId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("type")]
         public string Type { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -1196,34 +1196,34 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response8
     {
-        [Newtonsoft.Json.JsonProperty("AppId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("AppId")]
         public string AppId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CustomerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("CustomerId")]
         public double CustomerId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("DeviceHash", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("DeviceHash")]
         public string DeviceHash { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Expiry", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Expiry")]
         public string Expiry { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Features", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Features")]
         public string Features { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Id")]
         public double Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IssuedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IssuedAt")]
         public string IssuedAt { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IssuedTo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("IssuedTo")]
         public string IssuedTo { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("LicenseType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("LicenseType")]
         public object LicenseType { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("MinimumVersion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("MinimumVersion")]
         public string MinimumVersion { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -1240,22 +1240,22 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response9
     {
-        [Newtonsoft.Json.JsonProperty("detail", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("detail")]
         public string Detail { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("errors")]
         public object Errors { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("status")]
         public double Status { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("traceId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("traceId")]
         public string TraceId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("type")]
         public string Type { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
