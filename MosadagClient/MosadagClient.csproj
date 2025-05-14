@@ -3,10 +3,32 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
+    <Title>Mosadag API client</Title>
+    <Authors>Kemorave</Authors>
+    <Company>Ensight-tech</Company>
+    <Description>An api client for Mosadag plugin</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://ensight-tech.de/</PackageProjectUrl>
+    <PackageIcon>mosadagClient.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Kemorave/MosadagClient/tree/master/MosadagClient</RepositoryUrl>
+    <PackageTags>API, Ensight-tech</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="mosadagClient.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
