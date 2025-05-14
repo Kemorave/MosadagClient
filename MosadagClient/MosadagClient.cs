@@ -39,7 +39,7 @@ namespace MosadagClient
         public Client(System.Net.Http.HttpClient httpClient)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
-            BaseUrl = "{{baseUrl}}auth";
+            BaseUrl = httpClient.BaseAddress?.ToString() ?? "https://localhost:55336";
             _httpClient = httpClient;
             Initialize();
         }
@@ -147,8 +147,8 @@ namespace MosadagClient
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "login"
-                    urlBuilder_.Append("login");
+                    // Operation Path: "mosadageapi/v1/auth/login"
+                    urlBuilder_.Append("mosadageapi/v1/auth/login");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -301,8 +301,8 @@ namespace MosadagClient
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "register"
-                    urlBuilder_.Append("register");
+                    // Operation Path: "mosadageapi/v1/customer/register"
+                    urlBuilder_.Append("mosadageapi/v1/customer/register");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -401,8 +401,8 @@ namespace MosadagClient
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "customer"
-                    urlBuilder_.Append("customer");
+                    // Operation Path: "mosadageapi/v1/customer/customer"
+                    urlBuilder_.Append("mosadageapi/v1/customer/customer");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -503,8 +503,8 @@ namespace MosadagClient
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "check"
-                    urlBuilder_.Append("check");
+                    // Operation Path: "mosadageapi/v1/license/check"
+                    urlBuilder_.Append("mosadageapi/v1/license/check");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -603,8 +603,8 @@ namespace MosadagClient
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "latest/device"
-                    urlBuilder_.Append("latest/device");
+                    // Operation Path: "mosadageapi/v1/license/latest/device"
+                    urlBuilder_.Append("mosadageapi/v1/license/latest/device");
                     urlBuilder_.Append('?');
                     if (deviceHash != null)
                     {
