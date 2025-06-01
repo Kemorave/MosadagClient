@@ -5,7 +5,7 @@ namespace TestProject
 {
     public class UnitTests
     {
-        MosadagApi mosadagClient = new MosadagApi("https://store.ensight-tech.de", "");
+        MosadagApi mosadagClient = new MosadagApi("https://store.ensight-tech.de", "key");
         const string FakeHashedId = "fakedataid65415615";
         [SetUp]
         public void Setup()
