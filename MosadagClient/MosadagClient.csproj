@@ -14,10 +14,12 @@
     <RepositoryUrl>https://github.com/Kemorave/MosadagClient/tree/master/MosadagClient</RepositoryUrl>
     <PackageTags>API, Ensight-tech</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <AssemblyVersion></AssemblyVersion>
+    <Version>1.7.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Supabase" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
