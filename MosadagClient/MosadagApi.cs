@@ -17,11 +17,11 @@ namespace MosadagClient
 {
     public class MosadagApi
     {
-        public MosadagApi(string baseUrl)
+        public MosadagApi(string baseUrl, string key)
         {
             _httpClient = new System.Net.Http.HttpClient() { BaseAddress = new Uri(baseUrl), };
             Client = new Client(_httpClient);
-            supabase = new Supabase.Client(baseUrl, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE");
+            supabase = new Supabase.Client(baseUrl, key);
         }
         HttpClient _httpClient;
         public Client Client { get; }
