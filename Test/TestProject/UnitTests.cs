@@ -4,7 +4,7 @@ namespace TestProject
 {
     public class UnitTests
     {
-        MosadagApi mosadagClient = new MosadagApi("https://store.ensight-tech.de", "key");
+        MosadagApi mosadagClient = new MosadagApi("https:141.14.14", "key");
         const string FakeHashedId = "fakedataid65415615";
         [SetUp]
         public void Setup()
@@ -16,7 +16,7 @@ namespace TestProject
         [Order(0)]
         public void LoginTest()
         {
-            var login = mosadagClient.Client.LoginAsync("1.0.01", "1513wdfwq151454wqfd", "China Mobile", "Qswa@123", " admin@ensight-tech.de").Result;
+            var login = mosadagClient.Client.LoginAsync("1.0.01", "1513wdfwq151454wqfd", "China Mobile", "123456789", " none").Result;
             mosadagClient.SetAuthorize(login.Token);
             Assert.NotNull(login);
         }
