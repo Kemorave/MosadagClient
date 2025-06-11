@@ -27,10 +27,6 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Client
     {
-#pragma warning disable 8618
-        private string _baseUrl;
-#pragma warning restore 8618
-
         private System.Net.Http.HttpClient _httpClient;
         private static System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings, true);
         private Newtonsoft.Json.JsonSerializerSettings _instanceSettings;
@@ -39,7 +35,6 @@ namespace MosadagClient
         public Client(System.Net.Http.HttpClient httpClient)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
-            BaseUrl = httpClient.BaseAddress?.ToString() ?? "https://localhost:55336";
             _httpClient = httpClient;
             Initialize();
         }
@@ -49,17 +44,6 @@ namespace MosadagClient
             var settings = new Newtonsoft.Json.JsonSerializerSettings();
             UpdateJsonSerializerSettings(settings);
             return settings;
-        }
-
-        public string BaseUrl
-        {
-            get { return _baseUrl; }
-            set
-            {
-                _baseUrl = value;
-                if (!string.IsNullOrEmpty(_baseUrl) && !_baseUrl.EndsWith("/"))
-                    _baseUrl += '/';
-            }
         }
 
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _instanceSettings ?? _settings.Value; } }
@@ -72,19 +56,6 @@ namespace MosadagClient
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-        /// <summary>
-        /// Login
-        /// </summary>
-        /// <remarks>
-        /// Login
-        /// </remarks>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Response> LoginAsync(string deviceData_AppVersion, string deviceData_DeviceHashedId, string deviceData_DeviceName, string password, string userName)
-        {
-            return LoginAsync(deviceData_AppVersion, deviceData_DeviceHashedId, deviceData_DeviceName, password, userName, System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Login
@@ -94,7 +65,7 @@ namespace MosadagClient
         /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Response> LoginAsync(string deviceData_AppVersion, string deviceData_DeviceHashedId, string deviceData_DeviceName, string password, string userName, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Response> LoginAsync(string deviceData_AppVersion = null, string deviceData_DeviceHashedId = null, string deviceData_DeviceName = null, string password = null, string userName = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -146,7 +117,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "mosadageapi/v1/auth/login"
                     urlBuilder_.Append("mosadageapi/v1/auth/login");
 
@@ -212,19 +183,6 @@ namespace MosadagClient
             }
         }
 
-        /// <summary>
-        /// Register
-        /// </summary>
-        /// <remarks>
-        /// Register
-        /// </remarks>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Response3> RegisterAsync(string address, string email, string firstName, string lastName, string password, string phone, string username)
-        {
-            return RegisterAsync(address, email, firstName, lastName, password, phone, username, System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Register
@@ -234,7 +192,7 @@ namespace MosadagClient
         /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Response3> RegisterAsync(string address, string email, string firstName, string lastName, string password, string phone, string username, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Response3> RegisterAsync(string address = null, string email = null, string firstName = null, string lastName = null, string password = null, string phone = null, string username = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -300,7 +258,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "mosadageapi/v1/customer/register"
                     urlBuilder_.Append("mosadageapi/v1/customer/register");
 
@@ -366,19 +324,6 @@ namespace MosadagClient
             }
         }
 
-        /// <summary>
-        /// Profile
-        /// </summary>
-        /// <remarks>
-        /// Profile
-        /// </remarks>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Response5> ProfileAsync()
-        {
-            return ProfileAsync(System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Profile
@@ -388,7 +333,7 @@ namespace MosadagClient
         /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Response5> ProfileAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Response5> ProfileAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -400,7 +345,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "mosadageapi/v1/customer/customer"
                     urlBuilder_.Append("mosadageapi/v1/customer/customer");
 
@@ -456,19 +401,6 @@ namespace MosadagClient
             }
         }
 
-        /// <summary>
-        /// CheckLicense
-        /// </summary>
-        /// <remarks>
-        /// CheckLicense
-        /// </remarks>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Response6> ChecklicenseAsync(string payload)
-        {
-            return ChecklicenseAsync(payload, System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// CheckLicense
@@ -478,7 +410,7 @@ namespace MosadagClient
         /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Response6> ChecklicenseAsync(string payload, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Response6> ChecklicenseAsync(string payload = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -502,7 +434,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "mosadageapi/v1/license/check"
                     urlBuilder_.Append("mosadageapi/v1/license/check");
 
@@ -568,19 +500,6 @@ namespace MosadagClient
             }
         }
 
-        /// <summary>
-        /// GetLatestLicense
-        /// </summary>
-        /// <remarks>
-        /// GetLatestLicense
-        /// </remarks>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Response8> GetlatestlicenseAsync(string deviceHash)
-        {
-            return GetlatestlicenseAsync(deviceHash, System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// GetLatestLicense
@@ -590,7 +509,7 @@ namespace MosadagClient
         /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Response8> GetlatestlicenseAsync(string deviceHash, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Response8> GetlatestlicenseAsync(string deviceHash = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -602,7 +521,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+
                     // Operation Path: "mosadageapi/v1/license/latest/device"
                     urlBuilder_.Append("mosadageapi/v1/license/latest/device");
                     urlBuilder_.Append('?');
@@ -653,6 +572,352 @@ namespace MosadagClient
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             throw new ApiException<Response9>("Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// GetUserSettings
+        /// </summary>
+        /// <remarks>
+        /// GetUserSettings
+        /// </remarks>
+        /// <returns>Ok</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Response10> GetusersettingsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/userdata/settings"
+                    urlBuilder_.Append("mosadageapi/v1/userdata/settings");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Response10>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// UpdateUserSettings
+        /// </summary>
+        /// <remarks>
+        /// UpdateUserSettings
+        /// </remarks>
+        /// <returns>Ok</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Response11> UpdateusersettingsAsync(Body body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/userdata/settings"
+                    urlBuilder_.Append("mosadageapi/v1/userdata/settings");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Response11>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// GetUserTransactions
+        /// </summary>
+        /// <remarks>
+        /// GetUserTransactions
+        /// </remarks>
+        /// <returns>Ok</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Response12> GetusertransactionsAsync(string page = null, string pageSize = null, string transactionIds = null, string searchTerm = null, string sortBy = null, string sortDescending = null, Body2 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/userdata/transactions"
+                    urlBuilder_.Append("mosadageapi/v1/userdata/transactions");
+                    urlBuilder_.Append('?');
+                    if (page != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("page")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(page, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (pageSize != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("pageSize")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(pageSize, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (transactionIds != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("TransactionIds")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(transactionIds, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (searchTerm != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("SearchTerm")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(searchTerm, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (sortBy != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("SortBy")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(sortBy, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (sortDescending != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("SortDescending")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(sortDescending, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Response12>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// AddUserTransaction
+        /// </summary>
+        /// <remarks>
+        /// AddUserTransaction
+        /// </remarks>
+        /// <returns>Ok</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Response13> AddusertransactionAsync(Body3 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/userdata/transactions"
+                    urlBuilder_.Append("mosadageapi/v1/userdata/transactions");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Response13>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -787,10 +1052,76 @@ namespace MosadagClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Body
+    {
+        [Newtonsoft.Json.JsonProperty("data")]
+        public string Data { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Body2
+    {
+        [Newtonsoft.Json.JsonProperty("SearchTerm")]
+        public string SearchTerm { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("SortBy")]
+        public string SortBy { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("SortDescending")]
+        public string SortDescending { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TransactionIds")]
+        public System.Collections.Generic.ICollection<double> TransactionIds { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("page")]
+        public double? Page { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("pageSize")]
+        public double? PageSize { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Body3
+    {
+        [Newtonsoft.Json.JsonProperty("data")]
+        public string Data { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Response
     {
         [Newtonsoft.Json.JsonProperty("Deleted")]
-        public bool Deleted { get; set; }
+        public bool? Deleted { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Email")]
         public string Email { get; set; }
@@ -802,13 +1133,13 @@ namespace MosadagClient
         public string FirstName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IsActive")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IsAdmin")]
-        public bool IsAdmin { get; set; }
+        public bool? IsAdmin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IsVendor")]
-        public bool IsVendor { get; set; }
+        public bool? IsVendor { get; set; }
 
         [Newtonsoft.Json.JsonProperty("LastName")]
         public string LastName { get; set; }
@@ -817,7 +1148,7 @@ namespace MosadagClient
         public string LoginResults { get; set; }
 
         [Newtonsoft.Json.JsonProperty("LoginResultsCode")]
-        public double LoginResultsCode { get; set; }
+        public double? LoginResultsCode { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Phone")]
         public string Phone { get; set; }
@@ -829,13 +1160,13 @@ namespace MosadagClient
         public string Token { get; set; }
 
         [Newtonsoft.Json.JsonProperty("UserId")]
-        public double UserId { get; set; }
+        public double? UserId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("UserName")]
         public string UserName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("VendorId")]
-        public double VendorId { get; set; }
+        public double? VendorId { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -852,7 +1183,7 @@ namespace MosadagClient
     public partial class Response2
     {
         [Newtonsoft.Json.JsonProperty("Deleted")]
-        public bool Deleted { get; set; }
+        public bool? Deleted { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Email")]
         public object Email { get; set; }
@@ -864,13 +1195,13 @@ namespace MosadagClient
         public object FirstName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IsActive")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IsAdmin")]
-        public bool IsAdmin { get; set; }
+        public bool? IsAdmin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IsVendor")]
-        public bool IsVendor { get; set; }
+        public bool? IsVendor { get; set; }
 
         [Newtonsoft.Json.JsonProperty("LastName")]
         public object LastName { get; set; }
@@ -879,7 +1210,7 @@ namespace MosadagClient
         public string LoginResults { get; set; }
 
         [Newtonsoft.Json.JsonProperty("LoginResultsCode")]
-        public double LoginResultsCode { get; set; }
+        public double? LoginResultsCode { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Phone")]
         public object Phone { get; set; }
@@ -891,13 +1222,13 @@ namespace MosadagClient
         public object Token { get; set; }
 
         [Newtonsoft.Json.JsonProperty("UserId")]
-        public double UserId { get; set; }
+        public double? UserId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("UserName")]
         public object UserName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("VendorId")]
-        public double VendorId { get; set; }
+        public double? VendorId { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -917,7 +1248,7 @@ namespace MosadagClient
         public System.Collections.Generic.ICollection<object> Errors { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Success")]
-        public bool Success { get; set; }
+        public bool? Success { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -940,7 +1271,7 @@ namespace MosadagClient
         public object Errors { get; set; }
 
         [Newtonsoft.Json.JsonProperty("status")]
-        public double Status { get; set; }
+        public double? Status { get; set; }
 
         [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
@@ -966,16 +1297,16 @@ namespace MosadagClient
     public partial class Response5
     {
         [Newtonsoft.Json.JsonProperty("Active")]
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
 
         [Newtonsoft.Json.JsonProperty("AdminComment")]
         public object AdminComment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("AffiliateId")]
-        public double AffiliateId { get; set; }
+        public double? AffiliateId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("BillingAddressId")]
-        public double BillingAddressId { get; set; }
+        public double? BillingAddressId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("CannotLoginUntilDateUtc")]
         public object CannotLoginUntilDateUtc { get; set; }
@@ -987,7 +1318,7 @@ namespace MosadagClient
         public string Company { get; set; }
 
         [Newtonsoft.Json.JsonProperty("CountryId")]
-        public double CountryId { get; set; }
+        public double? CountryId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("County")]
         public object County { get; set; }
@@ -1008,7 +1339,7 @@ namespace MosadagClient
         public string DateOfBirth { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Deleted")]
-        public bool Deleted { get; set; }
+        public bool? Deleted { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Email")]
         public string Email { get; set; }
@@ -1017,7 +1348,7 @@ namespace MosadagClient
         public object EmailToRevalidate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("FailedLoginAttempts")]
-        public double FailedLoginAttempts { get; set; }
+        public double? FailedLoginAttempts { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Fax")]
         public object Fax { get; set; }
@@ -1029,16 +1360,16 @@ namespace MosadagClient
         public object Gender { get; set; }
 
         [Newtonsoft.Json.JsonProperty("HasShoppingCartItems")]
-        public bool HasShoppingCartItems { get; set; }
+        public bool? HasShoppingCartItems { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Id")]
-        public double Id { get; set; }
+        public double? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IsSystemAccount")]
-        public bool IsSystemAccount { get; set; }
+        public bool? IsSystemAccount { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IsTaxExempt")]
-        public bool IsTaxExempt { get; set; }
+        public bool? IsTaxExempt { get; set; }
 
         [Newtonsoft.Json.JsonProperty("LanguageId")]
         public object LanguageId { get; set; }
@@ -1059,16 +1390,16 @@ namespace MosadagClient
         public string Phone { get; set; }
 
         [Newtonsoft.Json.JsonProperty("RegisteredInStoreId")]
-        public double RegisteredInStoreId { get; set; }
+        public double? RegisteredInStoreId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("RequireReLogin")]
-        public bool RequireReLogin { get; set; }
+        public bool? RequireReLogin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("ShippingAddressId")]
-        public double ShippingAddressId { get; set; }
+        public double? ShippingAddressId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StateProvinceId")]
-        public double StateProvinceId { get; set; }
+        public double? StateProvinceId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StreetAddress")]
         public object StreetAddress { get; set; }
@@ -1095,13 +1426,13 @@ namespace MosadagClient
         public object VatNumber { get; set; }
 
         [Newtonsoft.Json.JsonProperty("VatNumberStatus")]
-        public double VatNumberStatus { get; set; }
+        public double? VatNumberStatus { get; set; }
 
         [Newtonsoft.Json.JsonProperty("VatNumberStatusId")]
-        public double VatNumberStatusId { get; set; }
+        public double? VatNumberStatusId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("VendorId")]
-        public double VendorId { get; set; }
+        public double? VendorId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("ZipPostalCode")]
         public object ZipPostalCode { get; set; }
@@ -1124,7 +1455,7 @@ namespace MosadagClient
         public object AppId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("CustomerId")]
-        public double CustomerId { get; set; }
+        public double? CustomerId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("DeviceHash")]
         public string DeviceHash { get; set; }
@@ -1136,7 +1467,7 @@ namespace MosadagClient
         public object Features { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Id")]
-        public double Id { get; set; }
+        public double? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IssuedAt")]
         public string IssuedAt { get; set; }
@@ -1171,7 +1502,7 @@ namespace MosadagClient
         public object Errors { get; set; }
 
         [Newtonsoft.Json.JsonProperty("status")]
-        public double Status { get; set; }
+        public double? Status { get; set; }
 
         [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
@@ -1200,7 +1531,7 @@ namespace MosadagClient
         public string AppId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("CustomerId")]
-        public double CustomerId { get; set; }
+        public double? CustomerId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("DeviceHash")]
         public string DeviceHash { get; set; }
@@ -1212,7 +1543,7 @@ namespace MosadagClient
         public string Features { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Id")]
-        public double Id { get; set; }
+        public double? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("IssuedAt")]
         public string IssuedAt { get; set; }
@@ -1247,7 +1578,7 @@ namespace MosadagClient
         public object Errors { get; set; }
 
         [Newtonsoft.Json.JsonProperty("status")]
-        public double Status { get; set; }
+        public double? Status { get; set; }
 
         [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
@@ -1257,6 +1588,139 @@ namespace MosadagClient
 
         [Newtonsoft.Json.JsonProperty("type")]
         public string Type { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Response10
+    {
+        [Newtonsoft.Json.JsonProperty("CreatedAt")]
+        public string CreatedAt { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Data")]
+        public string Data { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("HashedId")]
+        public string HashedId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Id")]
+        public double? Id { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Response11
+    {
+        [Newtonsoft.Json.JsonProperty("CreatedAt")]
+        public string CreatedAt { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Data")]
+        public string Data { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("HashedId")]
+        public string HashedId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Id")]
+        public double? Id { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Response12
+    {
+        [Newtonsoft.Json.JsonProperty("Items")]
+        public System.Collections.Generic.ICollection<Items> Items { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Page")]
+        public double? Page { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PageSize")]
+        public double? PageSize { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TotalCount")]
+        public double? TotalCount { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TotalPages")]
+        public double? TotalPages { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Response13
+    {
+        [Newtonsoft.Json.JsonProperty("CreatedAt")]
+        public string CreatedAt { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Data")]
+        public string Data { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("HashedId")]
+        public string HashedId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Id")]
+        public double? Id { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Items
+    {
+        [Newtonsoft.Json.JsonProperty("CreatedAt")]
+        public string CreatedAt { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Data")]
+        public string Data { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("HashedId")]
+        public string HashedId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Id")]
+        public double? Id { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 

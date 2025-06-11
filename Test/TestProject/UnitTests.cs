@@ -1,16 +1,14 @@
-using MosadagClient;
-using MosadagClient.Models;
+using MosadagClient; 
 
 namespace TestProject
 {
     public class UnitTests
     {
-        MosadagApi mosadagClient = new MosadagApi("https://localhost:5001", "key");
+        MosadagApi mosadagClient = new MosadagApi("https://store.ensight-tech.de", "key");
         const string FakeHashedId = "fakedataid65415615";
         [SetUp]
         public void Setup()
-        {
-            mosadagClient.initClient().Wait();
+        { 
         }
 
 
@@ -18,7 +16,7 @@ namespace TestProject
         [Order(0)]
         public void LoginTest()
         {
-            var login = mosadagClient.Client.LoginAsync("1.0.01", "1513wdfwq151454wqfd", "China Mobile", "123456789", "0121127623").Result;
+            var login = mosadagClient.Client.LoginAsync("1.0.01", "1513wdfwq151454wqfd", "China Mobile", "Qswa@123", " admin@ensight-tech.de").Result;
             mosadagClient.SetAuthorize(login.Token);
             Assert.NotNull(login);
         }
@@ -62,32 +60,23 @@ namespace TestProject
         [Order(5)]
         public void TestSettings()
         {
-            var data = mosadagClient.UpdateOrCreateCloudSettings(FakeHashedId, new SettingsTest() { FakeData = "fakeData", }).Result;
+            var data = mosadagClient.Client.GetusersettingsAsync().Result;
             Assert.NotNull(data);
-            data.FakeData = "fakeData1";
-            data = mosadagClient.UpdateOrCreateCloudSettings(FakeHashedId, data).Result;
-            data = mosadagClient.GetOrCreateCloudSettings<SettingsTest>(FakeHashedId).Result;
-            Assert.That(data.FakeData == "fakeData1");
+            var er = mosadagClient.Client.UpdateusersettingsAsync(new Body() { Data = "fakeData1" }).Result;
+            data = mosadagClient.Client.GetusersettingsAsync().Result;
+            Assert.That(data?.Data == "fakeData1");
         }
         [Test]
         [Order(6)]
         public void TestTransactions()
         {
-            mosadagClient.AddCloudTransactions(FakeHashedId, new List<TransactionsTest>() { new TransactionsTest() { FakeData = "fakeData", } }).Wait();
-            var data = mosadagClient.GetAllCloudTransactions<TransactionsTest>(FakeHashedId).Result;
-            Assert.That(data.Any(a => a.FakeData == "fakeData"));
+            var data = mosadagClient.Client.GetusertransactionsAsync().Result;
+
+            mosadagClient.Client.AddusertransactionAsync(new Body3() { Data = "fakeData" }).Wait();
+            data = mosadagClient.Client.GetusertransactionsAsync().Result;
+            Assert.That(data.Items.Any(a => a.Data == "fakeData"));
             //"192.168.1.50"
         }
     }
-    public class SettingsTest : IEntityModel
-    {
-        public long Id { get; set; }
-        public string? FakeData { get; set; }
-    }
-    public class TransactionsTest : ISyncedEntityModel
-    {
-        public long Id { get; set; }
-        public string? FakeData { get; set; }
-        public bool IsSynced { get; set; }
-    }
+   
 }
