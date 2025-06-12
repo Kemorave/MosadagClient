@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
- 
+
 
 
 namespace MosadagClient
 {
     public class MosadagApi
     {
-        public MosadagApi(string baseUrl, string key)
+        public MosadagApi(string nopcommerceUrl, string supabaseUrl, string supabaseKey)
         {
-            _httpClient = new System.Net.Http.HttpClient() { BaseAddress = new Uri(baseUrl), };
-            Client = new Client(_httpClient);
-
+            _httpClient = new System.Net.Http.HttpClient() { BaseAddress = new Uri(nopcommerceUrl), };
+            NopcommerceClient = new Client(_httpClient);
+            SupabaseClient = new Supabase.Client(supabaseUrl, supabaseKey);
         }
+        public Supabase.Client SupabaseClient { get; set; }
         HttpClient _httpClient;
-        public Client Client { get; }
+        public Client NopcommerceClient { get; }
 
         /// <summary>
         /// Sets or removes the authorization token for the HTTP client.
@@ -34,6 +33,11 @@ namespace MosadagClient
             {
                 _httpClient.DefaultRequestHeaders.Authorization = null;
             }
+        }
+
+        public async Task init()
+        {
+            await SupabaseClient.InitializeAsync();
         }
     }
 }
