@@ -2,6 +2,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using Supabase.Postgrest.Models;
+
 
 
 namespace MosadagClient
@@ -34,7 +36,7 @@ namespace MosadagClient
                 _httpClient.DefaultRequestHeaders.Authorization = null;
             }
         }
-
+        public SupabaseRepository<T> GetRepository<T>() where T : BaseModel, IBaseModel, new() => new SupabaseRepository<T>(SupabaseClient);
         public async Task init()
         {
             await SupabaseClient.InitializeAsync();
