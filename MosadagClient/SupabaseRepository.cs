@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-using Supabase.Postgrest.Interfaces;
+using Supabase.Postgrest.Interfaces; 
 using Supabase.Postgrest.Models;
 
 using static Supabase.Postgrest.Constants;
@@ -20,7 +20,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 
     private IPostgrestTable<T> Table => _client.From<T>();
 
-    public async Task<T?> GetByIdAsync(int id)
+    public async Task<T?> GetByIdAsync(long id)
     {
         return await Table
             .Where(x => x.Id == id)
@@ -70,7 +70,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
         }
 
         // Get count
-        var countTask = query.Count(CountType.Exact);
+        var countTask = Table.Count(CountType.Exact);
 
         // Apply pagination
         query = query
@@ -93,7 +93,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 
     }
 
-    public async Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
+    public async Task<long> CountAsync(Expression<Func<T, bool>> predicate = null)
     {
 
         var query = Table;
@@ -120,7 +120,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(long id)
     {
 
         await Table.Where(x => x.Id == id).Delete();

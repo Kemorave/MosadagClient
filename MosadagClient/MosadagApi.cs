@@ -8,7 +8,7 @@ using Supabase.Postgrest.Models;
 
 namespace MosadagClient
 {
-    public class MosadagApi
+    public sealed class MosadagApi
     {
         public MosadagApi(string nopcommerceUrl, string supabaseUrl, string supabaseKey)
         {
@@ -36,6 +36,33 @@ namespace MosadagClient
                 _httpClient.DefaultRequestHeaders.Authorization = null;
             }
         }
+        public async Task SendWhatsAppOtp(string phone, string? username = null)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                await SupabaseClient.Auth.SignInWithOtp(new Supabase.Gotrue.SignInWithPasswordlessPhoneOptions(phone)
+                {
+                    Channel = Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP,
+                    Phone = phone,
+                    ShouldCreateUser = false,
+                });
+            }
+            else
+            {
+                await SupabaseClient.Auth.SignInWithOtp(new Supabase.Gotrue.SignInWithPasswordlessPhoneOptions(phone)
+                {
+                    Channel = Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP,
+                    Phone = phone,
+                    ShouldCreateUser = true,
+                    Data = new System.Collections.Generic.Dictionary<string, object> { { "name", username }, { "display_name", username } }
+                });
+            }
+        }
+        public async Task<Supabase.Gotrue.Session?> VerifyOtp(string phone, string token)
+        {
+            return await SupabaseClient.Auth.VerifyOTP(phone, token, Supabase.Gotrue.Constants.MobileOtpType.SMS);
+        }
+
         public SupabaseRepository<T> GetRepository<T>() where T : BaseModel, IBaseModel, new() => new SupabaseRepository<T>(SupabaseClient);
         public async Task init()
         {

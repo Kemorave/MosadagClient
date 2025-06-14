@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Supabase.Postgrest.Attributes;
+
 public interface IBaseModel
 {
-    int Id { get; set; }
+
+    [PrimaryKey("id", false)] // false indicates this is not auto-incrementing
+    long Id { get; set; }
 }
 
