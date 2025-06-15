@@ -20,7 +20,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 
     private IPostgrestTable<T> Table => _client.From<T>();
 
-    public async Task<T?> GetByIdAsync(long id)
+    public async Task<T?> GetByIdAsync(Guid id)
     {
         return await Table
             .Where(x => x.Id == id)
@@ -93,7 +93,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 
     }
 
-    public async Task<long> CountAsync(Expression<Func<T, bool>> predicate = null)
+    public async Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
     {
 
         var query = Table;
@@ -120,7 +120,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 
     }
 
-    public async Task<bool> DeleteAsync(long id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
 
         await Table.Where(x => x.Id == id).Delete();

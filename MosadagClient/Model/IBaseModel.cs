@@ -8,6 +8,6 @@ public interface IBaseModel
 {
 
     [PrimaryKey("id", false)] // false indicates this is not auto-incrementing
-    long Id { get; set; }
+    Guid Id { get; set; }
 }
 

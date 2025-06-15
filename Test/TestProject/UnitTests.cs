@@ -74,7 +74,7 @@ namespace TestProject
     public class Transactions : BaseModel, IBaseModel
     {
         [PrimaryKey("id", false)] // false indicates this is not auto-incrementing
-        public long Id { get; set; }
+        public Guid Id { get; set; }
 
         [Column("created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
