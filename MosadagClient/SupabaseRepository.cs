@@ -4,10 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-using Supabase.Postgrest.Interfaces; 
-using Supabase.Postgrest.Models;
+using Postgrest.Interfaces; 
+using  Postgrest.Models;
 
-using static Supabase.Postgrest.Constants;
+using static Postgrest.Constants;
 
 public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 {
@@ -115,7 +115,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
     public async Task<T> UpdateAsync(T entity)
     {
 
-        var response = await Table.Update(entity, new Supabase.Postgrest.QueryOptions() { Returning = Supabase.Postgrest.QueryOptions.ReturnType.Representation });
+        var response = await Table.Update(entity, new   Postgrest.QueryOptions() { Returning = Postgrest.QueryOptions.ReturnType.Representation });
         return response.Models.First();
 
     }

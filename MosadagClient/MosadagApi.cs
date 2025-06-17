@@ -2,7 +2,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using Supabase.Postgrest.Models;
+using Postgrest.Models;
+
 
 
 
@@ -25,7 +26,7 @@ namespace MosadagClient
         /// </summary>
         /// <param name="token">The authorization token to set. If null or empty, the authorization header is removed.</param>
         /// <remarks>No return value.</remarks>
-        public void SetAuthorize(string? token)
+        private void _SetNopAuthorize(string? token)
         {
             if (!string.IsNullOrEmpty(token))
             {
@@ -36,37 +37,44 @@ namespace MosadagClient
                 _httpClient.DefaultRequestHeaders.Authorization = null;
             }
         }
+        public async Task Logout()
+        {
+            _SetNopAuthorize(null);
+            await SupabaseClient.Auth.SignOut();
+        }
         public async Task SendWhatsAppOtp(string phone, string? username = null)
         {
             if (string.IsNullOrEmpty(username))
             {
-                await SupabaseClient.Auth.SignInWithOtp(new Supabase.Gotrue.SignInWithPasswordlessPhoneOptions(phone)
-                {
-                    Channel = Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP,
-                    Phone = phone,
-                    ShouldCreateUser = false,
-                });
+                await NopcommerceClient.LoginWithOTPAsync(new OtpLoginModel() { PhoneNumber = phone, UserName = username, RegisteredOnly = true });
             }
             else
             {
-                await SupabaseClient.Auth.SignInWithOtp(new Supabase.Gotrue.SignInWithPasswordlessPhoneOptions(phone)
-                {
-                    Channel = Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP,
-                    Phone = phone,
-                    ShouldCreateUser = true,
-                    Data = new System.Collections.Generic.Dictionary<string, object> { { "name", username }, { "display_name", username } }
-                });
+                await NopcommerceClient.LoginWithOTPAsync(new OtpLoginModel() { PhoneNumber = phone, UserName = username, RegisteredOnly = false });
+
             }
         }
-        public async Task<Supabase.Gotrue.Session?> VerifyOtp(string phone, string token)
+        public async Task<AuthRes> VerifyOtp(string phone, string token, DeviceData deviceData)
         {
-            return await SupabaseClient.Auth.VerifyOTP(phone, token, Supabase.Gotrue.Constants.MobileOtpType.SMS);
+            var res = await NopcommerceClient.VerifyOTPAsync(new VerifyOTPModel() { PhoneNumber = phone, Code = token, DeviceData = deviceData });
+            var session = await SupabaseClient.Auth.SetSession(res.SupabaseAccessToken, res.SupabaseRefreshToken,true);
+            await SupabaseClient.Auth.Update(new Supabase.Gotrue.UserAttributes()
+            {
+                Data = new System.Collections.Generic.Dictionary<string, object>() { { "nop_token", res.Token } }
+            });
+            _SetNopAuthorize(res.Token);
+            return res;
         }
 
         public SupabaseRepository<T> GetRepository<T>() where T : BaseModel, IBaseModel, new() => new SupabaseRepository<T>(SupabaseClient);
         public async Task init()
         {
             await SupabaseClient.InitializeAsync();
+            if (SupabaseClient.Auth.CurrentUser?.UserMetadata?["nop_token"] is string token)
+            {
+                _SetNopAuthorize(token);
+            }
         }
     }
+
 }

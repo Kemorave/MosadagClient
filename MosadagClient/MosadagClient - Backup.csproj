@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="supabase-csharp" Version="0.14.0" />
+    <PackageReference Include="supabase-csharp" Version="0.16.2" />
   </ItemGroup>
 
   <ItemGroup>

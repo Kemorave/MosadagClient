@@ -57,15 +57,1320 @@ namespace MosadagClient
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// CheckLicense
-        /// </summary>
-        /// <remarks>
-        /// CheckLicense
-        /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Response> ChecklicenseAsync(string payload = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task LoginWithOTPAsync(OtpLoginModel body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/auth/login/sendOTP"
+                    urlBuilder_.Append("mosadageapi/v1/auth/login/sendOTP");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<AuthRes> VerifyOTPAsync(VerifyOTPModel body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/auth/login/verifyOTP"
+                    urlBuilder_.Append("mosadageapi/v1/auth/login/verifyOTP");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<AuthRes>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<AuthRes> LoginAsync(string email = null, string userName = null, string password = null, string deviceData_DeviceHashedId = null, string deviceData_DeviceName = null, string deviceData_AppVersion = null, string externalAuthProvider = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var boundary_ = System.Guid.NewGuid().ToString();
+                    var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);
+                    content_.Headers.Remove("Content-Type");
+                    content_.Headers.TryAddWithoutValidation("Content-Type", "multipart/form-data; boundary=" + boundary_);
+
+                    if (email == null)
+                        throw new System.ArgumentNullException("email");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture)), "Email");
+                    }
+
+                    if (userName == null)
+                        throw new System.ArgumentNullException("userName");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(userName, System.Globalization.CultureInfo.InvariantCulture)), "UserName");
+                    }
+
+                    if (password == null)
+                        throw new System.ArgumentNullException("password");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(password, System.Globalization.CultureInfo.InvariantCulture)), "Password");
+                    }
+
+                    if (deviceData_DeviceHashedId == null)
+                        throw new System.ArgumentNullException("deviceData_DeviceHashedId");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(deviceData_DeviceHashedId, System.Globalization.CultureInfo.InvariantCulture)), "DeviceData.DeviceHashedId");
+                    }
+
+                    if (deviceData_DeviceName == null)
+                        throw new System.ArgumentNullException("deviceData_DeviceName");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(deviceData_DeviceName, System.Globalization.CultureInfo.InvariantCulture)), "DeviceData.DeviceName");
+                    }
+
+                    if (deviceData_AppVersion == null)
+                        throw new System.ArgumentNullException("deviceData_AppVersion");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(deviceData_AppVersion, System.Globalization.CultureInfo.InvariantCulture)), "DeviceData.AppVersion");
+                    }
+
+                    if (externalAuthProvider == null)
+                        throw new System.ArgumentNullException("externalAuthProvider");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(externalAuthProvider, System.Globalization.CultureInfo.InvariantCulture)), "ExternalAuthProvider");
+                    }
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/auth/login"
+                    urlBuilder_.Append("mosadageapi/v1/auth/login");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<AuthRes>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<AuthRes> ExternalLoginAsync(string externalIdentifier = null, string externalDisplayIdentifier = null, string accessToken = null, string email = null, System.Collections.Generic.IEnumerable<string> claims = null, string deviceData_DeviceHashedId = null, string deviceData_DeviceName = null, string deviceData_AppVersion = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var boundary_ = System.Guid.NewGuid().ToString();
+                    var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);
+                    content_.Headers.Remove("Content-Type");
+                    content_.Headers.TryAddWithoutValidation("Content-Type", "multipart/form-data; boundary=" + boundary_);
+
+                    if (externalIdentifier == null)
+                        throw new System.ArgumentNullException("externalIdentifier");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(externalIdentifier, System.Globalization.CultureInfo.InvariantCulture)), "ExternalIdentifier");
+                    }
+
+                    if (externalDisplayIdentifier == null)
+                        throw new System.ArgumentNullException("externalDisplayIdentifier");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(externalDisplayIdentifier, System.Globalization.CultureInfo.InvariantCulture)), "ExternalDisplayIdentifier");
+                    }
+
+                    if (accessToken == null)
+                        throw new System.ArgumentNullException("accessToken");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(accessToken, System.Globalization.CultureInfo.InvariantCulture)), "AccessToken");
+                    }
+
+                    if (email == null)
+                        throw new System.ArgumentNullException("email");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture)), "Email");
+                    }
+
+                    if (claims == null)
+                        throw new System.ArgumentNullException("claims");
+                    else
+                    {
+                        foreach (var item_ in claims)
+                        {
+                            content_.Add(new System.Net.Http.StringContent(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture)), "Claims");
+                        }
+                    }
+
+                    if (deviceData_DeviceHashedId == null)
+                        throw new System.ArgumentNullException("deviceData_DeviceHashedId");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(deviceData_DeviceHashedId, System.Globalization.CultureInfo.InvariantCulture)), "DeviceData.DeviceHashedId");
+                    }
+
+                    if (deviceData_DeviceName == null)
+                        throw new System.ArgumentNullException("deviceData_DeviceName");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(deviceData_DeviceName, System.Globalization.CultureInfo.InvariantCulture)), "DeviceData.DeviceName");
+                    }
+
+                    if (deviceData_AppVersion == null)
+                        throw new System.ArgumentNullException("deviceData_AppVersion");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(deviceData_AppVersion, System.Globalization.CultureInfo.InvariantCulture)), "DeviceData.AppVersion");
+                    }
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/auth/login/external"
+                    urlBuilder_.Append("mosadageapi/v1/auth/login/external");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<AuthRes>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<RefreshRes> RefreshAsync(AuthRefreshRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/auth/refresh"
+                    urlBuilder_.Append("mosadageapi/v1/auth/refresh");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<RefreshRes>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<bool> CheckUsernameAvailabilityAsync(string username = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/nameavailability"
+                    urlBuilder_.Append("mosadageapi/v1/customer/nameavailability");
+                    urlBuilder_.Append('?');
+                    if (username != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("username")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(username, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<bool>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task SendPasswordRecoveryEmailAsync(PasswordRecoveryModel body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/resetpassword"
+                    urlBuilder_.Append("mosadageapi/v1/customer/resetpassword");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<PasswordRecoveryModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<PasswordRecoveryModel>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CustomerRegistrationResult> RegisterAsync(string firstName = null, string lastName = null, string username = null, string password = null, string phone = null, string email = null, string address = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var boundary_ = System.Guid.NewGuid().ToString();
+                    var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);
+                    content_.Headers.Remove("Content-Type");
+                    content_.Headers.TryAddWithoutValidation("Content-Type", "multipart/form-data; boundary=" + boundary_);
+
+                    if (firstName == null)
+                        throw new System.ArgumentNullException("firstName");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(firstName, System.Globalization.CultureInfo.InvariantCulture)), "FirstName");
+                    }
+
+                    if (lastName == null)
+                        throw new System.ArgumentNullException("lastName");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(lastName, System.Globalization.CultureInfo.InvariantCulture)), "LastName");
+                    }
+
+                    if (username == null)
+                        throw new System.ArgumentNullException("username");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(username, System.Globalization.CultureInfo.InvariantCulture)), "Username");
+                    }
+
+                    if (password == null)
+                        throw new System.ArgumentNullException("password");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(password, System.Globalization.CultureInfo.InvariantCulture)), "Password");
+                    }
+
+                    if (phone == null)
+                        throw new System.ArgumentNullException("phone");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(phone, System.Globalization.CultureInfo.InvariantCulture)), "Phone");
+                    }
+
+                    if (email == null)
+                        throw new System.ArgumentNullException("email");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture)), "Email");
+                    }
+
+                    if (address == null)
+                        throw new System.ArgumentNullException("address");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(address, System.Globalization.CultureInfo.InvariantCulture)), "Address");
+                    }
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/register"
+                    urlBuilder_.Append("mosadageapi/v1/customer/register");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<CustomerRegistrationResult>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Customer> GetCustomerAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/customer"
+                    urlBuilder_.Append("mosadageapi/v1/customer/customer");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Customer>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DeviceDto>> GetDevicesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/devices"
+                    urlBuilder_.Append("mosadageapi/v1/customer/devices");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<DeviceDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task AddDeviceAsync(UserDevice body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/devices"
+                    urlBuilder_.Append("mosadageapi/v1/customer/devices");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task DeleteDeviceAsync(string deviceIdHash = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/devices"
+                    urlBuilder_.Append("mosadageapi/v1/customer/devices");
+                    urlBuilder_.Append('?');
+                    if (deviceIdHash != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("deviceIdHash")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(deviceIdHash, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LicenseDto>> GetDeviceLicensesAsync(string deviceIdHash = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/devices/licenses"
+                    urlBuilder_.Append("mosadageapi/v1/customer/devices/licenses");
+                    urlBuilder_.Append('?');
+                    if (deviceIdHash != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("deviceIdHash")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(deviceIdHash, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<LicenseDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LicenseDto>> GetLicensesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/customer/licenses"
+                    urlBuilder_.Append("mosadageapi/v1/customer/licenses");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<LicenseDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<License> CheckLicenseAsync(string payload = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -86,7 +1391,7 @@ namespace MosadagClient
                     }
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
 
@@ -116,9 +1421,19 @@ namespace MosadagClient
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Response>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<License>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -128,12 +1443,12 @@ namespace MosadagClient
                         else
                         if (status_ == 400)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Response2>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Response2>("Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -156,15 +1471,9 @@ namespace MosadagClient
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// GetLatestLicense
-        /// </summary>
-        /// <remarks>
-        /// GetLatestLicense
-        /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Response3> GetlatestlicenseAsync(string deviceHash = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<License> GetLatestDeviceLicenseAsync(string deviceHash = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -173,7 +1482,7 @@ namespace MosadagClient
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
 
@@ -209,9 +1518,19 @@ namespace MosadagClient
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Response3>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<License>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -221,12 +1540,107 @@ namespace MosadagClient
                         else
                         if (status_ == 400)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Response4>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Response4>("Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<License> CreatePendingManualLicenseAsync(License body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+
+                    // Operation Path: "mosadageapi/v1/license"
+                    urlBuilder_.Append("mosadageapi/v1/license");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<License>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -361,113 +1775,385 @@ namespace MosadagClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Response
+    public partial class AuthRefreshRequest
     {
-        [Newtonsoft.Json.JsonProperty("AppId")]
-        public object AppId { get; set; }
+        [Newtonsoft.Json.JsonProperty("token")]
+        public string Token { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CustomerId")]
-        public double? CustomerId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("DeviceHash")]
-        public string DeviceHash { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Expiry")]
-        public string Expiry { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Features")]
-        public object Features { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Id")]
-        public double? Id { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("IssuedAt")]
-        public string IssuedAt { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("IssuedTo")]
-        public string IssuedTo { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("LicenseType")]
-        public object LicenseType { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("MinimumVersion")]
-        public string MinimumVersion { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
+        [Newtonsoft.Json.JsonProperty("refreshToken")]
+        public string RefreshToken { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Response2
+    public partial class AuthRes
     {
-        [Newtonsoft.Json.JsonProperty("detail")]
-        public string Detail { get; set; }
+        [Newtonsoft.Json.JsonProperty("userId")]
+        public int? UserId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("userName")]
+        public string UserName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("token")]
+        public string Token { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("supabaseAccessToken")]
+        public string SupabaseAccessToken { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("supabaseRefreshToken")]
+        public string SupabaseRefreshToken { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("refreshToken")]
+        public string RefreshToken { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("loginResultsCode")]
+        public CustomerLoginResults? LoginResultsCode { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("loginResults")]
+        public string LoginResults { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isAdmin")]
+        public bool? IsAdmin { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isActive")]
+        public bool? IsActive { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("email")]
+        public string Email { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("phone")]
+        public string Phone { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("firstName")]
+        public string FirstName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("lastName")]
+        public string LastName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("errorMessage")]
+        public string ErrorMessage { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("deleted")]
+        public bool? Deleted { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("vendorId")]
+        public int? VendorId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isVendor")]
+        public bool? IsVendor { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Customer
+    {
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int? Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("customerGuid")]
+        public System.Guid? CustomerGuid { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("username")]
+        public string Username { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("email")]
+        public string Email { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("firstName")]
+        public string FirstName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("lastName")]
+        public string LastName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("gender")]
+        public string Gender { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("dateOfBirth")]
+        public System.DateTimeOffset? DateOfBirth { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("company")]
+        public string Company { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("streetAddress")]
+        public string StreetAddress { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("streetAddress2")]
+        public string StreetAddress2 { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("zipPostalCode")]
+        public string ZipPostalCode { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("city")]
+        public string City { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("county")]
+        public string County { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("countryId")]
+        public int? CountryId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("stateProvinceId")]
+        public int? StateProvinceId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("phone")]
+        public string Phone { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("fax")]
+        public string Fax { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("vatNumber")]
+        public string VatNumber { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("vatNumberStatusId")]
+        public int? VatNumberStatusId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("timeZoneId")]
+        public string TimeZoneId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("customCustomerAttributesXML")]
+        public string CustomCustomerAttributesXML { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("currencyId")]
+        public int? CurrencyId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("languageId")]
+        public int? LanguageId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("taxDisplayTypeId")]
+        public int? TaxDisplayTypeId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("emailToRevalidate")]
+        public string EmailToRevalidate { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("adminComment")]
+        public string AdminComment { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isTaxExempt")]
+        public bool? IsTaxExempt { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("affiliateId")]
+        public int? AffiliateId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("vendorId")]
+        public int? VendorId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("hasShoppingCartItems")]
+        public bool? HasShoppingCartItems { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("requireReLogin")]
+        public bool? RequireReLogin { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("failedLoginAttempts")]
+        public int? FailedLoginAttempts { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("cannotLoginUntilDateUtc")]
+        public System.DateTimeOffset? CannotLoginUntilDateUtc { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("active")]
+        public bool? Active { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("deleted")]
+        public bool? Deleted { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isSystemAccount")]
+        public bool? IsSystemAccount { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("systemName")]
+        public string SystemName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("lastIpAddress")]
+        public string LastIpAddress { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("createdOnUtc")]
+        public System.DateTimeOffset? CreatedOnUtc { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("lastLoginDateUtc")]
+        public System.DateTimeOffset? LastLoginDateUtc { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("lastActivityDateUtc")]
+        public System.DateTimeOffset? LastActivityDateUtc { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("registeredInStoreId")]
+        public int? RegisteredInStoreId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("billingAddressId")]
+        public int? BillingAddressId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("shippingAddressId")]
+        public int? ShippingAddressId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("vatNumberStatus")]
+        public VatNumberStatus? VatNumberStatus { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("taxDisplayType")]
+        public TaxDisplayType? TaxDisplayType { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum CustomerLoginResults
+    {
+
+        _1 = 1,
+
+        _2 = 2,
+
+        _3 = 3,
+
+        _4 = 4,
+
+        _5 = 5,
+
+        _6 = 6,
+
+        _7 = 7,
+
+        _8 = 8,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class CustomerRegistrationResult
+    {
+        [Newtonsoft.Json.JsonProperty("success")]
+        public bool? Success { get; set; }
 
         [Newtonsoft.Json.JsonProperty("errors")]
-        public object Errors { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("status")]
-        public double? Status { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("title")]
-        public string Title { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("traceId")]
-        public string TraceId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("type")]
-        public string Type { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
+        public System.Collections.Generic.ICollection<string> Errors { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Response3
+    public partial class DeviceData
     {
-        [Newtonsoft.Json.JsonProperty("AppId")]
-        public string AppId { get; set; }
+        [Newtonsoft.Json.JsonProperty("deviceHashedId")]
+        public string DeviceHashedId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CustomerId")]
-        public double? CustomerId { get; set; }
+        [Newtonsoft.Json.JsonProperty("deviceName")]
+        public string DeviceName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("DeviceHash")]
-        public string DeviceHash { get; set; }
+        [Newtonsoft.Json.JsonProperty("appVersion")]
+        public string AppVersion { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Expiry")]
-        public string Expiry { get; set; }
+    }
 
-        [Newtonsoft.Json.JsonProperty("Features")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DeviceDto
+    {
+        [Newtonsoft.Json.JsonProperty("device")]
+        public UserDevice Device { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("license")]
+        public License License { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isLicensed")]
+        public bool? IsLicensed { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isLicensedActive")]
+        public bool? IsLicensedActive { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class License
+    {
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int? Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("issuedTo")]
+        public string IssuedTo { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("issuedAt")]
+        public System.DateTimeOffset? IssuedAt { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("expiry")]
+        public System.DateTimeOffset? Expiry { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("licenseType")]
+        public string LicenseType { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("features")]
         public string Features { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Id")]
-        public double? Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("deviceHash")]
+        public string DeviceHash { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IssuedAt")]
-        public string IssuedAt { get; set; }
+        [Newtonsoft.Json.JsonProperty("appId")]
+        public string AppId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("IssuedTo")]
-        public string IssuedTo { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("LicenseType")]
-        public object LicenseType { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("MinimumVersion")]
+        [Newtonsoft.Json.JsonProperty("minimumVersion")]
         public string MinimumVersion { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("customerId")]
+        public int? CustomerId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isPending")]
+        public bool? IsPending { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("cost")]
+        public decimal? Cost { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class LicenseDto
+    {
+        [Newtonsoft.Json.JsonProperty("license")]
+        public License License { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("devices")]
+        public System.Collections.Generic.ICollection<UserDevice> Devices { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isLicensedActive")]
+        public bool? IsLicensedActive { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class OtpLoginModel
+    {
+        [Newtonsoft.Json.JsonProperty("phoneNumber")]
+        public string PhoneNumber { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("registeredOnly")]
+        public bool? RegisteredOnly { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("userName")]
+        public string UserName { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class PasswordRecoveryModel
+    {
+        [Newtonsoft.Json.JsonProperty("customProperties")]
+        public System.Collections.Generic.IDictionary<string, string> CustomProperties { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("email")]
+        public string Email { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("displayCaptcha")]
+        public bool? DisplayCaptcha { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ProblemDetails
+    {
+        [Newtonsoft.Json.JsonProperty("type")]
+        public string Type { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("title")]
+        public string Title { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("status")]
+        public int? Status { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("detail")]
+        public string Detail { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("instance")]
+        public string Instance { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -481,25 +2167,72 @@ namespace MosadagClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Response4
+    public partial class RefreshRes
     {
-        [Newtonsoft.Json.JsonProperty("detail")]
-        public string Detail { get; set; }
+        [Newtonsoft.Json.JsonProperty("token")]
+        public string Token { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("errors")]
-        public object Errors { get; set; }
+        [Newtonsoft.Json.JsonProperty("refreshToken")]
+        public string RefreshToken { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("status")]
-        public double? Status { get; set; }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum TaxDisplayType
+    {
+
+        _0 = 0,
+
+        _10 = 10,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class UserDevice
+    {
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int? Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("deviceIdHash")]
+        public string DeviceIdHash { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("customerId")]
+        public int? CustomerId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("friendlyName")]
+        public string FriendlyName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("createdAt")]
+        public System.DateTimeOffset? CreatedAt { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("lastLoginDate")]
+        public System.DateTimeOffset? LastLoginDate { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("appVersion")]
+        public string AppVersion { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ValidationProblemDetails
+    {
+        [Newtonsoft.Json.JsonProperty("type")]
+        public string Type { get; set; }
 
         [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("traceId")]
-        public string TraceId { get; set; }
+        [Newtonsoft.Json.JsonProperty("status")]
+        public int? Status { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("type")]
-        public string Type { get; set; }
+        [Newtonsoft.Json.JsonProperty("detail")]
+        public string Detail { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("instance")]
+        public string Instance { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("errors")]
+        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<string>> Errors { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -509,6 +2242,34 @@ namespace MosadagClient
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
             set { _additionalProperties = value; }
         }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum VatNumberStatus
+    {
+
+        _0 = 0,
+
+        _10 = 10,
+
+        _20 = 20,
+
+        _30 = 30,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class VerifyOTPModel
+    {
+        [Newtonsoft.Json.JsonProperty("deviceData")]
+        public DeviceData DeviceData { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("phoneNumber")]
+        public string PhoneNumber { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("code")]
+        public string Code { get; set; }
 
     }
 
