@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
+using MosadagClient.Services;
+
 using Postgrest.Models;
+
+using Supabase.Gotrue;
+using Supabase.Gotrue.Interfaces;
 
 
 
@@ -20,6 +26,7 @@ namespace MosadagClient
         public Supabase.Client SupabaseClient { get; set; }
         HttpClient _httpClient;
         public Client NopcommerceClient { get; }
+        public SaveLoginDataService DataService { get; private set; }
 
         /// <summary>
         /// Sets or removes the authorization token for the HTTP client.
@@ -41,6 +48,7 @@ namespace MosadagClient
         {
             _SetNopAuthorize(null);
             await SupabaseClient.Auth.SignOut();
+            DataService.DestroySession();
         }
         public async Task SendWhatsAppOtp(string phone, string? username = null)
         {
@@ -63,16 +71,27 @@ namespace MosadagClient
                 Data = new System.Collections.Generic.Dictionary<string, object>() { { "nop_token", res.Token } }
             });
             _SetNopAuthorize(res.Token);
+            DataService.SaveSession(new Model.LoginData() { NopcommerceToken = res.Token, Session = session });
             return res;
         }
 
         public SupabaseRepository<T> GetRepository<T>() where T : BaseModel, IBaseModel, new() => new SupabaseRepository<T>(SupabaseClient);
-        public async Task init()
+        public async Task init(SaveLoginDataService dataService)
         {
-            await SupabaseClient.InitializeAsync();
-            if (SupabaseClient.Auth.CurrentUser?.UserMetadata?["nop_token"] is string token)
+            if (dataService is null)
             {
-                _SetNopAuthorize(token);
+                throw new ArgumentNullException(nameof(dataService));
+            }
+            this.DataService = dataService;
+            var session = dataService?.LoadSession();
+            var nopToken = session?.NopcommerceToken;
+
+            SupabaseClient.Auth.SetPersistence(new SaveLoginDataWrapperService(service: dataService!));
+            await SupabaseClient.InitializeAsync();
+            SupabaseClient.Auth.LoadSession();
+            if (! string.IsNullOrEmpty(nopToken))
+            {
+                _SetNopAuthorize(nopToken);
             }
         }
     }

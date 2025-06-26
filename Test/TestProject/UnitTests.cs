@@ -1,6 +1,12 @@
+using System;
+using System.IO;
+using System.Text.Json;
+
 using DotNetEnv;
 
 using MosadagClient;
+using MosadagClient.Model;
+using MosadagClient.Services;
 
 using Postgrest.Attributes;
 using Postgrest.Models;
@@ -18,7 +24,7 @@ namespace TestProject
             var a = Env.Load(".env");
             mosadagClient = new MosadagApi(nopcommerceUrl: Environment.GetEnvironmentVariable("NC_URL"), supabaseUrl: Environment.GetEnvironmentVariable("SP_URL"), supabaseKey: Environment.GetEnvironmentVariable("SP_KEY"));
 
-            mosadagClient.init().Wait();
+            mosadagClient.init(new FileSaveLoginDataService()).Wait();
         }
 
         [Test()]
@@ -85,4 +91,53 @@ namespace TestProject
         [Column("user_id")]
         public Guid UserId { get; set; }
     }
+    public class FileSaveLoginDataService : SaveLoginDataService
+    {
+        private readonly string _filePath;
+
+        public FileSaveLoginDataService(string filePath = "logindata.json")
+        {
+            _filePath = filePath;
+        }
+
+        public override void DestroySession()
+        {
+            if (File.Exists(_filePath))
+            {
+                File.Delete(_filePath);
+            }
+        }
+
+        public override LoginData? LoadSession()
+        {
+            if (!File.Exists(_filePath))
+            {
+                return null;
+            }
+
+            try
+            {
+                var json = File.ReadAllText(_filePath);
+                return JsonSerializer.Deserialize<LoginData>(json);
+            }
+            catch (Exception)
+            {
+                // Log error if needed
+                return null;
+            }
+        }
+
+        public override void SaveSession(LoginData session)
+        {
+            if (session == null)
+            {
+                throw new ArgumentNullException(nameof(session));
+            }
+
+            var json = JsonSerializer.Serialize(session);
+            File.WriteAllText(_filePath, json);
+        }
+    }
+
+
 }
