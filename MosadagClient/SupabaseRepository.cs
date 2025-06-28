@@ -116,7 +116,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
     {
 
         var response = await Table.Update(entity, new   Postgrest.QueryOptions() { Returning = Postgrest.QueryOptions.ReturnType.Representation });
-        return response.Models.First();
+        return response. Model ?? response.Models.FirstOrDefault();
 
     }
 
