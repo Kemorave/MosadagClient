@@ -7,6 +7,7 @@ using MosadagClient.Services;
 
 using Postgrest.Models;
 
+using Supabase;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Interfaces;
 
@@ -21,7 +22,7 @@ namespace MosadagClient
         {
             _httpClient = new System.Net.Http.HttpClient() { BaseAddress = new Uri(nopcommerceUrl), };
             NopcommerceClient = new Client(_httpClient);
-            SupabaseClient = new Supabase.Client(supabaseUrl, supabaseKey);
+            SupabaseClient = new Supabase.Client(supabaseUrl, supabaseKey, new SupabaseOptions() { AutoRefreshToken = true, StorageClientOptions = new Supabase.Storage.ClientOptions(){HttpRequestTimeout = TimeSpan.FromMinutes(10), }});
         }
         public Supabase.Client SupabaseClient { get; set; }
         HttpClient _httpClient;
