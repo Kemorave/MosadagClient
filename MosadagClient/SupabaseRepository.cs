@@ -4,135 +4,165 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-using Postgrest.Interfaces; 
-using  Postgrest.Models;
+using MosadagClient;
+
+using Postgrest.Interfaces;
+using Postgrest.Models;
 
 using static Postgrest.Constants;
 
 public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 {
     private readonly Supabase.Client _client;
+    private readonly MosadagApi mosadagApi;
 
-    public SupabaseRepository(Supabase.Client client)
+    public SupabaseRepository(MosadagApi mosadagApi)
     {
-        _client = client;
+        _client = mosadagApi.SupabaseClient;
+        this.mosadagApi = mosadagApi;
     }
 
     private IPostgrestTable<T> Table => _client.From<T>();
 
     public async Task<T?> GetByIdAsync(Guid id)
     {
+
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
+    {
         return await Table
             .Where(x => x.Id == id)
             .Single();
+    });
     }
 
     public async Task<T?> GetSingleAsync(Expression<Func<T, bool>> predicate)
     {
-        return await Table
-            .Where(predicate)
-            .Single();
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
+        {
+
+            return await Table
+                .Where(predicate)
+                .Single();
+        });
     }
 
     public async Task<IEnumerable<T>?> GetAllAsync()
     {
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
+        {
 
-        return (await Table.Get()).Models;
 
+            return (await Table.Get()).Models;
+        });
     }
 
     public async Task<IEnumerable<T>?> FindAsync(Expression<Func<T, bool>> predicate)
     {
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
+        {
 
-        return (await Table
-            .Where(predicate)
-            .Get())?.Models;
-
+            return (await Table
+                .Where(predicate)
+                .Get())?.Models;
+        });
 
     }
 
     public async Task<PaginatedResult<T>?> GetPaginatedAsync(PaginationOptions options)
     {
-        var query = Table;
-
-        // Apply filters
-        foreach (var filter in options.Filters)
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
         {
-            query = query.Filter(filter.Key, Operator.Equals, filter.Value);
-        }
 
-        // Apply sorting
-        if (!string.IsNullOrWhiteSpace(options.SortBy))
-        {
-            query = options.SortDescending
-                ? query.Order(options.SortBy, Ordering.Descending)
-                : query.Order(options.SortBy, Ordering.Ascending);
-        }
+            var query = Table;
 
-        // Get count
-        var countTask = Table.Count(CountType.Exact);
+            // Apply filters
+            foreach (var filter in options.Filters)
+            {
+                query = query.Filter(filter.Key, Operator.Equals, filter.Value);
+            }
 
-        // Apply pagination
-        query = query
-            .Range((options.PageNumber - 1) * options.PageSize, options.PageNumber * options.PageSize - 1);
+            // Apply sorting
+            if (!string.IsNullOrWhiteSpace(options.SortBy))
+            {
+                query = options.SortDescending
+                    ? query.Order(options.SortBy, Ordering.Descending)
+                    : query.Order(options.SortBy, Ordering.Ascending);
+            }
 
-        var itemsTask = query.Get();
+            // Get count
+            var countTask = Table.Count(CountType.Exact);
 
-        await Task.WhenAll(countTask, itemsTask);
+            // Apply pagination
+            query = query
+                .Range((options.PageNumber - 1) * options.PageSize, options.PageNumber * options.PageSize - 1);
 
-        return new PaginatedResult<T>
-        {
-            Items = itemsTask.Result.Models,
-            TotalCount = countTask.Result,
-            PageNumber = options.PageNumber,
-            PageSize = options.PageSize,
-            SortBy = options.SortBy,
-            SortDescending = options.SortDescending,
-            PaginationOptions = options
-        };
+            var itemsTask = query.Get();
 
+            await Task.WhenAll(countTask, itemsTask);
+
+            return new PaginatedResult<T>
+            {
+                Items = itemsTask.Result.Models,
+                TotalCount = countTask.Result,
+                PageNumber = options.PageNumber,
+                PageSize = options.PageSize,
+                SortBy = options.SortBy,
+                SortDescending = options.SortDescending,
+                PaginationOptions = options
+            };
+        });
     }
 
     public async Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
     {
-
-        var query = Table;
-        if (predicate != null)
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
         {
-            query = query.Where(predicate);
-        }
-        return await query.Count(CountType.Exact);
 
+            var query = Table;
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+            return await query.Count(CountType.Exact);
+        });
     }
 
     public async Task<T> AddAsync(T entity)
     {
-        var response = await Table.Insert(entity);
-        return response.Models.First();
-
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
+        {
+            var response = await Table.Insert(entity);
+            return response.Models.First();
+        });
     }
 
     public async Task<T> UpdateAsync(T entity)
     {
-
-        var response = await Table.Update(entity, new   Postgrest.QueryOptions() { Returning = Postgrest.QueryOptions.ReturnType.Representation });
-        return response. Model ?? response.Models.FirstOrDefault();
-
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
+        {
+            var response = await Table.Update(entity, new Postgrest.QueryOptions() { Returning = Postgrest.QueryOptions.ReturnType.Representation });
+            return response.Model ?? response.Models.FirstOrDefault();
+        });
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
+        {
 
-        await Table.Where(x => x.Id == id).Delete();
-        return true;
 
+            await Table.Where(x => x.Id == id).Delete();
+            return true;
+        });
     }
 
     public async Task<bool> DeleteAsync(Expression<Func<T, bool>> predicate)
     {
+        return await mosadagApi.MakeRequestWithRefresh(async () =>
+        {
 
-        await Table.Where(predicate).Delete();
-        return true;
-
+            await Table.Where(predicate).Delete();
+            return true;
+        });
     }
 }

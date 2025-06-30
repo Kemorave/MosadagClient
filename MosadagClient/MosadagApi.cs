@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 
 using MosadagClient.Services;
 
+using Postgrest.Exceptions;
 using Postgrest.Models;
 
 using Supabase;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Interfaces;
+
+using Websocket.Client.Logging;
 
 
 
@@ -27,7 +30,7 @@ namespace MosadagClient
         public Supabase.Client SupabaseClient { get; set; }
         HttpClient _httpClient;
         public Client NopcommerceClient { get; }
-        public SaveLoginDataService DataService { get; private set; }
+        public SaveLoginDataService? DataService { get; private set; }
 
         /// <summary>
         /// Sets or removes the authorization token for the HTTP client.
@@ -49,7 +52,7 @@ namespace MosadagClient
         {
             _SetNopAuthorize(null);
             await SupabaseClient.Auth.SignOut();
-            DataService.DestroySession();
+            DataService?.DestroySession();
         }
         public async Task SendWhatsAppOtp(string phone, string? username = null)
         {
@@ -72,11 +75,11 @@ namespace MosadagClient
                 Data = new System.Collections.Generic.Dictionary<string, object>() { { "nop_token", res.Token } }
             });
             _SetNopAuthorize(res.Token);
-            DataService.SaveSession(new Model.LoginData() { NopcommerceToken = res.Token, Session = session });
+            DataService?.SaveSession(new Model.LoginData() { NopcommerceToken = res.Token, Session = session });
             return res;
         }
 
-        public SupabaseRepository<T> GetRepository<T>() where T : BaseModel, IBaseModel, new() => new SupabaseRepository<T>(SupabaseClient);
+        public SupabaseRepository<T> GetRepository<T>() where T : BaseModel, IBaseModel, new() => new SupabaseRepository<T>(this);
         public async Task init(SaveLoginDataService dataService)
         {
             if (dataService is null)
@@ -93,8 +96,34 @@ namespace MosadagClient
             if (! string.IsNullOrEmpty(nopToken))
             {
                 _SetNopAuthorize(nopToken);
+             await   RefreshToken();
             }
         }
+        public async Task<T> MakeRequestWithRefresh<T>(Func<Task<T>> apiCall)
+        {
+            try
+            {
+                return await apiCall();
+            }
+            catch (PostgrestException ex) when (ex.Message.Contains("PGRST301")|| ex.Message.Contains("JWT expired"))
+            {
+                // Refresh token and retry
+                await RefreshToken();
+                return await apiCall();
+            }
+        }
+        public async Task RefreshToken()
+        {
+            try
+            {
+               await SupabaseClient.Auth.RefreshSession();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
     }
 
 }
