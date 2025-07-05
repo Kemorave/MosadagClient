@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Postgrest.Attributes;
+using Supabase.Postgrest.Attributes;
 
 
 public interface IBaseModel

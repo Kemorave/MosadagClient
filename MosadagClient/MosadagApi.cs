@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 
 using MosadagClient.Services;
 
-using Postgrest.Exceptions;
-using Postgrest.Models;
+using Supabase.Postgrest.Exceptions;
+using Supabase.Postgrest.Models;
 
 using Supabase;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Interfaces;
-
-using Websocket.Client.Logging;
+ 
 
 
 
@@ -105,7 +104,13 @@ namespace MosadagClient
             {
                 return await apiCall();
             }
-            catch (PostgrestException ex) when (ex.Message.Contains("PGRST301")|| ex.Message.Contains("JWT expired"))
+            //catch (PostgrestException ex) when (ex.Message.Contains("PGRST301") || ex.Message.Contains("JWT expired"))
+            //{
+            //    // Refresh token and retry
+            //    await RefreshToken();
+            //    return await apiCall();
+            //}
+            catch  
             {
                 // Refresh token and retry
                 await RefreshToken();

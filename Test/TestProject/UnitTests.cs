@@ -8,8 +8,8 @@ using MosadagClient;
 using MosadagClient.Model;
 using MosadagClient.Services;
 
-using Postgrest.Attributes;
-using Postgrest.Models;
+using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 
 namespace TestProject
 {

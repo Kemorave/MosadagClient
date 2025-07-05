@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 using MosadagClient;
 
-using Postgrest.Interfaces;
-using Postgrest.Models;
+using Supabase.Postgrest.Interfaces;
+using Supabase.Postgrest.Models;
 
-using static Postgrest.Constants;
+using static Supabase .Postgrest.Constants;
 
 public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
 {
@@ -140,7 +140,7 @@ public class SupabaseRepository<T> where T : BaseModel, IBaseModel, new()
     {
         return await mosadagApi.MakeRequestWithRefresh(async () =>
         {
-            var response = await Table.Update(entity, new Postgrest.QueryOptions() { Returning = Postgrest.QueryOptions.ReturnType.Representation });
+            var response = await Table.Update(entity, new Supabase. Postgrest.QueryOptions() { Returning =Supabase. Postgrest.QueryOptions.ReturnType.Representation });
             return response.Model ?? response.Models.FirstOrDefault();
         });
     }
