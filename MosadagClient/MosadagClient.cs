@@ -39,7 +39,7 @@ namespace MosadagClient
         public Client(System.Net.Http.HttpClient httpClient)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
-            BaseUrl = "https://localhost:5001";
+            BaseUrl = httpClient.BaseAddress.ToString();
             _httpClient = httpClient;
             Initialize();
         }
