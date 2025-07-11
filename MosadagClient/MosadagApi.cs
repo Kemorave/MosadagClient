@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 using MosadagClient.Services;
 
-using Supabase.Postgrest.Exceptions;
-using Supabase.Postgrest.Models;
-
 using Supabase;
 using Supabase.Gotrue;
-using Supabase.Gotrue.Interfaces;
- 
+using Supabase.Interfaces;
+using Supabase.Postgrest.Models;
+
 
 
 
@@ -24,7 +21,7 @@ namespace MosadagClient
         {
             _httpClient = new System.Net.Http.HttpClient() { BaseAddress = new Uri(nopcommerceUrl), };
             NopcommerceClient = new Client(_httpClient);
-            SupabaseClient = new Supabase.Client(supabaseUrl, supabaseKey, new SupabaseOptions() { AutoRefreshToken = true, StorageClientOptions = new Supabase.Storage.ClientOptions(){HttpRequestTimeout = TimeSpan.FromMinutes(10), }});
+            SupabaseClient = new Supabase.Client(supabaseUrl, supabaseKey, new SupabaseOptions() { AutoRefreshToken = true, StorageClientOptions = new Supabase.Storage.ClientOptions() { HttpRequestTimeout = TimeSpan.FromMinutes(10), } });
         }
         public Supabase.Client SupabaseClient { get; set; }
         HttpClient _httpClient;
@@ -53,26 +50,25 @@ namespace MosadagClient
             await SupabaseClient.Auth.SignOut();
             DataService?.DestroySession();
         }
-        public async Task SendWhatsAppOtp(string phone, string? username = null)
+        public async Task SendWhatsAppOtp(string phone, string? username = null, SignInWithPasswordlessPhoneOptions.MessagingChannel channel = SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP)
         {
             if (string.IsNullOrEmpty(username))
             {
-                await NopcommerceClient.LoginWithOTPAsync(new OtpLoginModel() { PhoneNumber = phone, UserName = username, RegisteredOnly = true });
+                await SupabaseClient.Auth.SignInWithOtp(new SignInWithPasswordlessPhoneOptions(phone) { Channel = channel, ShouldCreateUser = false });
             }
             else
             {
-                await NopcommerceClient.LoginWithOTPAsync(new OtpLoginModel() { PhoneNumber = phone, UserName = username, RegisteredOnly = false });
-
+                await SupabaseClient.Auth.SignInWithOtp(new SignInWithPasswordlessPhoneOptions(phone) { Channel = channel, ShouldCreateUser = true, Data = new System.Collections.Generic.Dictionary<string, object>() { { "display_name", username ?? "" } } });
             }
         }
         public async Task<AuthRes> VerifyOtp(string phone, string token, DeviceData deviceData)
         {
-            var res = await NopcommerceClient.VerifyOTPAsync(new VerifyOTPModel() { PhoneNumber = phone, Code = token, DeviceData = deviceData });
-            var session = await SupabaseClient.Auth.SetSession(res.SupabaseAccessToken, res.SupabaseRefreshToken,true);
-            await SupabaseClient.Auth.Update(new Supabase.Gotrue.UserAttributes()
+            var session = await SupabaseClient.Auth.VerifyOTP( phone, token, Supabase.Gotrue.Constants.MobileOtpType.SMS);
+            if (session==null)
             {
-                Data = new System.Collections.Generic.Dictionary<string, object>() { { "nop_token", res.Token } }
-            });
+                throw new Exception("Session is null");
+            }
+            var res = await NopcommerceClient.VerifySupbaseTokenAsync(new VerifySupbaseTokenModel() { DeviceData = deviceData, Token = session.AccessToken, PhoneNumber = session.User!.Phone, });
             _SetNopAuthorize(res.Token);
             DataService?.SaveSession(new Model.LoginData() { NopcommerceToken = res.Token, Session = session });
             return res;
@@ -92,10 +88,10 @@ namespace MosadagClient
             SupabaseClient.Auth.SetPersistence(new SaveLoginDataWrapperService(service: dataService!));
             await SupabaseClient.InitializeAsync();
             SupabaseClient.Auth.LoadSession();
-            if (! string.IsNullOrEmpty(nopToken))
+            if (!string.IsNullOrEmpty(nopToken))
             {
                 _SetNopAuthorize(nopToken);
-             await   RefreshToken();
+                await RefreshToken();
             }
         }
         public async Task<T> MakeRequestWithRefresh<T>(Func<Task<T>> apiCall)
@@ -110,7 +106,7 @@ namespace MosadagClient
             //    await RefreshToken();
             //    return await apiCall();
             //}
-            catch  
+            catch
             {
                 // Refresh token and retry
                 await RefreshToken();
@@ -121,7 +117,7 @@ namespace MosadagClient
         {
             try
             {
-               await SupabaseClient.Auth.RefreshSession();
+                await SupabaseClient.Auth.RefreshSession();
             }
             catch (Exception ex)
             {

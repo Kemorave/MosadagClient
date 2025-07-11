@@ -27,6 +27,10 @@ namespace MosadagClient
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Client
     {
+#pragma warning disable 8618
+        private string _baseUrl;
+#pragma warning restore 8618
+
         private System.Net.Http.HttpClient _httpClient;
         private static System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings, true);
         private Newtonsoft.Json.JsonSerializerSettings _instanceSettings;
@@ -35,6 +39,7 @@ namespace MosadagClient
         public Client(System.Net.Http.HttpClient httpClient)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
+            BaseUrl = "https://localhost:5001";
             _httpClient = httpClient;
             Initialize();
         }
@@ -44,6 +49,17 @@ namespace MosadagClient
             var settings = new Newtonsoft.Json.JsonSerializerSettings();
             UpdateJsonSerializerSettings(settings);
             return settings;
+        }
+
+        public string BaseUrl
+        {
+            get { return _baseUrl; }
+            set
+            {
+                _baseUrl = value;
+                if (!string.IsNullOrEmpty(_baseUrl) && !_baseUrl.EndsWith("/"))
+                    _baseUrl += '/';
+            }
         }
 
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _instanceSettings ?? _settings.Value; } }
@@ -56,10 +72,17 @@ namespace MosadagClient
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task LoginWithOTPAsync(OtpLoginModel body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task LoginWithOTPAsync(OtpLoginModel body)
+        {
+            return LoginWithOTPAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task LoginWithOTPAsync(OtpLoginModel body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -74,7 +97,7 @@ namespace MosadagClient
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/auth/login/sendOTP"
                     urlBuilder_.Append("mosadageapi/v1/auth/login/sendOTP");
 
@@ -108,7 +131,7 @@ namespace MosadagClient
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -145,10 +168,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AuthRes> VerifyOTPAsync(VerifyOTPModel body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<AuthRes> VerifyOTPAsync(VerifyOTPModel body)
+        {
+            return VerifyOTPAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<AuthRes> VerifyOTPAsync(VerifyOTPModel body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -164,7 +194,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/auth/login/verifyOTP"
                     urlBuilder_.Append("mosadageapi/v1/auth/login/verifyOTP");
 
@@ -198,7 +228,7 @@ namespace MosadagClient
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -240,10 +270,119 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AuthRes> LoginAsync(string email = null, string userName = null, string password = null, string deviceData_DeviceHashedId = null, string deviceData_DeviceName = null, string deviceData_AppVersion = null, string externalAuthProvider = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<AuthRes> VerifySupbaseTokenAsync(VerifySupbaseTokenModel body)
+        {
+            return VerifySupbaseTokenAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<AuthRes> VerifySupbaseTokenAsync(VerifySupbaseTokenModel body, System.Threading.CancellationToken cancellationToken)
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "mosadageapi/v1/auth/login/auth/supabase"
+                    urlBuilder_.Append("mosadageapi/v1/auth/login/auth/supabase");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<AuthRes>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ValidationProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<AuthRes> LoginAsync(string email, string userName, string password, string deviceData_DeviceHashedId, string deviceData_DeviceName, string deviceData_AppVersion, string externalAuthProvider)
+        {
+            return LoginAsync(email, userName, password, deviceData_DeviceHashedId, deviceData_DeviceName, deviceData_AppVersion, externalAuthProvider, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<AuthRes> LoginAsync(string email, string userName, string password, string deviceData_DeviceHashedId, string deviceData_DeviceName, string deviceData_AppVersion, string externalAuthProvider, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -309,7 +448,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/auth/login"
                     urlBuilder_.Append("mosadageapi/v1/auth/login");
 
@@ -343,7 +482,7 @@ namespace MosadagClient
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -375,10 +514,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AuthRes> ExternalLoginAsync(string externalIdentifier = null, string externalDisplayIdentifier = null, string accessToken = null, string email = null, System.Collections.Generic.IEnumerable<string> claims = null, string deviceData_DeviceHashedId = null, string deviceData_DeviceName = null, string deviceData_AppVersion = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<AuthRes> ExternalLoginAsync(string externalIdentifier, string externalDisplayIdentifier, string accessToken, string email, System.Collections.Generic.IEnumerable<string> claims, string deviceData_DeviceHashedId, string deviceData_DeviceName, string deviceData_AppVersion)
+        {
+            return ExternalLoginAsync(externalIdentifier, externalDisplayIdentifier, accessToken, email, claims, deviceData_DeviceHashedId, deviceData_DeviceName, deviceData_AppVersion, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<AuthRes> ExternalLoginAsync(string externalIdentifier, string externalDisplayIdentifier, string accessToken, string email, System.Collections.Generic.IEnumerable<string> claims, string deviceData_DeviceHashedId, string deviceData_DeviceName, string deviceData_AppVersion, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -454,7 +600,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/auth/login/external"
                     urlBuilder_.Append("mosadageapi/v1/auth/login/external");
 
@@ -488,7 +634,7 @@ namespace MosadagClient
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -520,10 +666,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<RefreshRes> RefreshAsync(AuthRefreshRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<RefreshRes> RefreshAsync(AuthRefreshRequest body)
+        {
+            return RefreshAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<RefreshRes> RefreshAsync(AuthRefreshRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -539,7 +692,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/auth/refresh"
                     urlBuilder_.Append("mosadageapi/v1/auth/refresh");
 
@@ -573,7 +726,7 @@ namespace MosadagClient
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -615,10 +768,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<bool> CheckUsernameAvailabilityAsync(string username = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<bool> CheckUsernameAvailabilityAsync(string username)
+        {
+            return CheckUsernameAvailabilityAsync(username, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<bool> CheckUsernameAvailabilityAsync(string username, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -631,7 +791,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/nameavailability"
                     urlBuilder_.Append("mosadageapi/v1/customer/nameavailability");
                     urlBuilder_.Append('?');
@@ -693,10 +853,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SendPasswordRecoveryEmailAsync(PasswordRecoveryModel body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task SendPasswordRecoveryEmailAsync(PasswordRecoveryModel body)
+        {
+            return SendPasswordRecoveryEmailAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task SendPasswordRecoveryEmailAsync(PasswordRecoveryModel body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -711,7 +878,7 @@ namespace MosadagClient
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/resetpassword"
                     urlBuilder_.Append("mosadageapi/v1/customer/resetpassword");
 
@@ -782,10 +949,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CustomerRegistrationResult> RegisterAsync(string firstName = null, string lastName = null, string username = null, string password = null, string phone = null, string email = null, string address = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<CustomerRegistrationResult> RegisterAsync(string firstName, string lastName, string username, string password, string phone, string email, string address)
+        {
+            return RegisterAsync(firstName, lastName, username, password, phone, email, address, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CustomerRegistrationResult> RegisterAsync(string firstName, string lastName, string username, string password, string phone, string email, string address, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -851,7 +1025,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/register"
                     urlBuilder_.Append("mosadageapi/v1/customer/register");
 
@@ -917,10 +1091,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Customer> GetCustomerAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<Customer> GetCustomerAsync()
+        {
+            return GetCustomerAsync(System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Customer> GetCustomerAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -932,7 +1113,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/customer"
                     urlBuilder_.Append("mosadageapi/v1/customer/customer");
 
@@ -988,10 +1169,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DeviceDto>> GetDevicesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DeviceDto>> GetDevicesAsync()
+        {
+            return GetDevicesAsync(System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DeviceDto>> GetDevicesAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1003,7 +1191,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/devices"
                     urlBuilder_.Append("mosadageapi/v1/customer/devices");
 
@@ -1059,10 +1247,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task AddDeviceAsync(UserDevice body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task AddDeviceAsync(UserDevice body)
+        {
+            return AddDeviceAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task AddDeviceAsync(UserDevice body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1077,7 +1272,7 @@ namespace MosadagClient
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/devices"
                     urlBuilder_.Append("mosadageapi/v1/customer/devices");
 
@@ -1138,10 +1333,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteDeviceAsync(string deviceIdHash = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task DeleteDeviceAsync(string deviceIdHash)
+        {
+            return DeleteDeviceAsync(deviceIdHash, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task DeleteDeviceAsync(string deviceIdHash, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1152,7 +1354,7 @@ namespace MosadagClient
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/devices"
                     urlBuilder_.Append("mosadageapi/v1/customer/devices");
                     urlBuilder_.Append('?');
@@ -1219,10 +1421,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LicenseDto>> GetDeviceLicensesAsync(string deviceIdHash = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LicenseDto>> GetDeviceLicensesAsync(string deviceIdHash)
+        {
+            return GetDeviceLicensesAsync(deviceIdHash, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LicenseDto>> GetDeviceLicensesAsync(string deviceIdHash, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1234,7 +1443,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/devices/licenses"
                     urlBuilder_.Append("mosadageapi/v1/customer/devices/licenses");
                     urlBuilder_.Append('?');
@@ -1296,10 +1505,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LicenseDto>> GetLicensesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LicenseDto>> GetLicensesAsync()
+        {
+            return GetLicensesAsync(System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LicenseDto>> GetLicensesAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1311,7 +1527,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/customer/licenses"
                     urlBuilder_.Append("mosadageapi/v1/customer/licenses");
 
@@ -1367,10 +1583,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<License> CheckLicenseAsync(string payload = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<License> CheckLicenseAsync(string payload)
+        {
+            return CheckLicenseAsync(payload, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<License> CheckLicenseAsync(string payload, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1394,7 +1617,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/license/check"
                     urlBuilder_.Append("mosadageapi/v1/license/check");
 
@@ -1428,7 +1651,7 @@ namespace MosadagClient
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -1470,10 +1693,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<License> GetLatestDeviceLicenseAsync(string deviceHash = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<License> GetLatestDeviceLicenseAsync(string deviceHash)
+        {
+            return GetLatestDeviceLicenseAsync(deviceHash, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<License> GetLatestDeviceLicenseAsync(string deviceHash, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1485,7 +1715,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/license/latest/device"
                     urlBuilder_.Append("mosadageapi/v1/license/latest/device");
                     urlBuilder_.Append('?');
@@ -1525,7 +1755,7 @@ namespace MosadagClient
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -1567,10 +1797,17 @@ namespace MosadagClient
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<License> CreatePendingManualLicenseAsync(License body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual System.Threading.Tasks.Task<License> CreatePendingManualLicenseAsync(License body)
+        {
+            return CreatePendingManualLicenseAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<License> CreatePendingManualLicenseAsync(License body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1586,7 +1823,7 @@ namespace MosadagClient
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
-
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "mosadageapi/v1/license"
                     urlBuilder_.Append("mosadageapi/v1/license");
 
@@ -1620,7 +1857,7 @@ namespace MosadagClient
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ValidationProblemDetails>("Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ValidationProblemDetails>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -1789,7 +2026,7 @@ namespace MosadagClient
     public partial class AuthRes
     {
         [Newtonsoft.Json.JsonProperty("userId")]
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("userName")]
         public string UserName { get; set; }
@@ -1807,16 +2044,16 @@ namespace MosadagClient
         public string RefreshToken { get; set; }
 
         [Newtonsoft.Json.JsonProperty("loginResultsCode")]
-        public CustomerLoginResults? LoginResultsCode { get; set; }
+        public CustomerLoginResults LoginResultsCode { get; set; }
 
         [Newtonsoft.Json.JsonProperty("loginResults")]
         public string LoginResults { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isAdmin")]
-        public bool? IsAdmin { get; set; }
+        public bool IsAdmin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isActive")]
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         [Newtonsoft.Json.JsonProperty("email")]
         public string Email { get; set; }
@@ -1834,13 +2071,13 @@ namespace MosadagClient
         public string ErrorMessage { get; set; }
 
         [Newtonsoft.Json.JsonProperty("deleted")]
-        public bool? Deleted { get; set; }
+        public bool Deleted { get; set; }
 
         [Newtonsoft.Json.JsonProperty("vendorId")]
-        public int? VendorId { get; set; }
+        public int VendorId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isVendor")]
-        public bool? IsVendor { get; set; }
+        public bool IsVendor { get; set; }
 
     }
 
@@ -1848,10 +2085,10 @@ namespace MosadagClient
     public partial class Customer
     {
         [Newtonsoft.Json.JsonProperty("id")]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("customerGuid")]
-        public System.Guid? CustomerGuid { get; set; }
+        public System.Guid CustomerGuid { get; set; }
 
         [Newtonsoft.Json.JsonProperty("username")]
         public string Username { get; set; }
@@ -1890,10 +2127,10 @@ namespace MosadagClient
         public string County { get; set; }
 
         [Newtonsoft.Json.JsonProperty("countryId")]
-        public int? CountryId { get; set; }
+        public int CountryId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("stateProvinceId")]
-        public int? StateProvinceId { get; set; }
+        public int StateProvinceId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("phone")]
         public string Phone { get; set; }
@@ -1905,7 +2142,7 @@ namespace MosadagClient
         public string VatNumber { get; set; }
 
         [Newtonsoft.Json.JsonProperty("vatNumberStatusId")]
-        public int? VatNumberStatusId { get; set; }
+        public int VatNumberStatusId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("timeZoneId")]
         public string TimeZoneId { get; set; }
@@ -1929,34 +2166,34 @@ namespace MosadagClient
         public string AdminComment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isTaxExempt")]
-        public bool? IsTaxExempt { get; set; }
+        public bool IsTaxExempt { get; set; }
 
         [Newtonsoft.Json.JsonProperty("affiliateId")]
-        public int? AffiliateId { get; set; }
+        public int AffiliateId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("vendorId")]
-        public int? VendorId { get; set; }
+        public int VendorId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("hasShoppingCartItems")]
-        public bool? HasShoppingCartItems { get; set; }
+        public bool HasShoppingCartItems { get; set; }
 
         [Newtonsoft.Json.JsonProperty("requireReLogin")]
-        public bool? RequireReLogin { get; set; }
+        public bool RequireReLogin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("failedLoginAttempts")]
-        public int? FailedLoginAttempts { get; set; }
+        public int FailedLoginAttempts { get; set; }
 
         [Newtonsoft.Json.JsonProperty("cannotLoginUntilDateUtc")]
         public System.DateTimeOffset? CannotLoginUntilDateUtc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("active")]
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
 
         [Newtonsoft.Json.JsonProperty("deleted")]
-        public bool? Deleted { get; set; }
+        public bool Deleted { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isSystemAccount")]
-        public bool? IsSystemAccount { get; set; }
+        public bool IsSystemAccount { get; set; }
 
         [Newtonsoft.Json.JsonProperty("systemName")]
         public string SystemName { get; set; }
@@ -1965,16 +2202,16 @@ namespace MosadagClient
         public string LastIpAddress { get; set; }
 
         [Newtonsoft.Json.JsonProperty("createdOnUtc")]
-        public System.DateTimeOffset? CreatedOnUtc { get; set; }
+        public System.DateTimeOffset CreatedOnUtc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("lastLoginDateUtc")]
         public System.DateTimeOffset? LastLoginDateUtc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("lastActivityDateUtc")]
-        public System.DateTimeOffset? LastActivityDateUtc { get; set; }
+        public System.DateTimeOffset LastActivityDateUtc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("registeredInStoreId")]
-        public int? RegisteredInStoreId { get; set; }
+        public int RegisteredInStoreId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billingAddressId")]
         public int? BillingAddressId { get; set; }
@@ -1983,7 +2220,7 @@ namespace MosadagClient
         public int? ShippingAddressId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("vatNumberStatus")]
-        public VatNumberStatus? VatNumberStatus { get; set; }
+        public VatNumberStatus VatNumberStatus { get; set; }
 
         [Newtonsoft.Json.JsonProperty("taxDisplayType")]
         public TaxDisplayType? TaxDisplayType { get; set; }
@@ -2016,7 +2253,7 @@ namespace MosadagClient
     public partial class CustomerRegistrationResult
     {
         [Newtonsoft.Json.JsonProperty("success")]
-        public bool? Success { get; set; }
+        public bool Success { get; set; }
 
         [Newtonsoft.Json.JsonProperty("errors")]
         public System.Collections.Generic.ICollection<string> Errors { get; set; }
@@ -2047,7 +2284,7 @@ namespace MosadagClient
         public License License { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isLicensed")]
-        public bool? IsLicensed { get; set; }
+        public bool IsLicensed { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isLicensedActive")]
         public bool? IsLicensedActive { get; set; }
@@ -2058,16 +2295,16 @@ namespace MosadagClient
     public partial class License
     {
         [Newtonsoft.Json.JsonProperty("id")]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("issuedTo")]
         public string IssuedTo { get; set; }
 
         [Newtonsoft.Json.JsonProperty("issuedAt")]
-        public System.DateTimeOffset? IssuedAt { get; set; }
+        public System.DateTimeOffset IssuedAt { get; set; }
 
         [Newtonsoft.Json.JsonProperty("expiry")]
-        public System.DateTimeOffset? Expiry { get; set; }
+        public System.DateTimeOffset Expiry { get; set; }
 
         [Newtonsoft.Json.JsonProperty("licenseType")]
         public string LicenseType { get; set; }
@@ -2085,13 +2322,13 @@ namespace MosadagClient
         public string MinimumVersion { get; set; }
 
         [Newtonsoft.Json.JsonProperty("customerId")]
-        public int? CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isPending")]
-        public bool? IsPending { get; set; }
+        public bool IsPending { get; set; }
 
         [Newtonsoft.Json.JsonProperty("cost")]
-        public decimal? Cost { get; set; }
+        public decimal Cost { get; set; }
 
     }
 
@@ -2116,7 +2353,7 @@ namespace MosadagClient
         public string PhoneNumber { get; set; }
 
         [Newtonsoft.Json.JsonProperty("registeredOnly")]
-        public bool? RegisteredOnly { get; set; }
+        public bool RegisteredOnly { get; set; }
 
         [Newtonsoft.Json.JsonProperty("userName")]
         public string UserName { get; set; }
@@ -2133,7 +2370,7 @@ namespace MosadagClient
         public string Email { get; set; }
 
         [Newtonsoft.Json.JsonProperty("displayCaptcha")]
-        public bool? DisplayCaptcha { get; set; }
+        public bool DisplayCaptcha { get; set; }
 
     }
 
@@ -2191,22 +2428,22 @@ namespace MosadagClient
     public partial class UserDevice
     {
         [Newtonsoft.Json.JsonProperty("id")]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("deviceIdHash")]
         public string DeviceIdHash { get; set; }
 
         [Newtonsoft.Json.JsonProperty("customerId")]
-        public int? CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("friendlyName")]
         public string FriendlyName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("createdAt")]
-        public System.DateTimeOffset? CreatedAt { get; set; }
+        public System.DateTimeOffset CreatedAt { get; set; }
 
         [Newtonsoft.Json.JsonProperty("lastLoginDate")]
-        public System.DateTimeOffset? LastLoginDate { get; set; }
+        public System.DateTimeOffset LastLoginDate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("appVersion")]
         public string AppVersion { get; set; }
@@ -2270,6 +2507,20 @@ namespace MosadagClient
 
         [Newtonsoft.Json.JsonProperty("code")]
         public string Code { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class VerifySupbaseTokenModel
+    {
+        [Newtonsoft.Json.JsonProperty("deviceData")]
+        public DeviceData DeviceData { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("phoneNumber")]
+        public string PhoneNumber { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("token")]
+        public string Token { get; set; }
 
     }
 
