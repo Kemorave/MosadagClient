@@ -2106,7 +2106,7 @@ namespace MosadagClient
         public string Gender { get; set; }
 
         [Newtonsoft.Json.JsonProperty("dateOfBirth")]
-        public System.DateTimeOffset? DateOfBirth { get; set; }
+        public System.DateTime? DateOfBirth { get; set; }
 
         [Newtonsoft.Json.JsonProperty("company")]
         public string Company { get; set; }
@@ -2184,7 +2184,7 @@ namespace MosadagClient
         public int FailedLoginAttempts { get; set; }
 
         [Newtonsoft.Json.JsonProperty("cannotLoginUntilDateUtc")]
-        public System.DateTimeOffset? CannotLoginUntilDateUtc { get; set; }
+        public System.DateTime? CannotLoginUntilDateUtc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("active")]
         public bool Active { get; set; }
@@ -2202,13 +2202,13 @@ namespace MosadagClient
         public string LastIpAddress { get; set; }
 
         [Newtonsoft.Json.JsonProperty("createdOnUtc")]
-        public System.DateTimeOffset CreatedOnUtc { get; set; }
+        public System.DateTime CreatedOnUtc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("lastLoginDateUtc")]
-        public System.DateTimeOffset? LastLoginDateUtc { get; set; }
+        public System.DateTime? LastLoginDateUtc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("lastActivityDateUtc")]
-        public System.DateTimeOffset LastActivityDateUtc { get; set; }
+        public System.DateTime LastActivityDateUtc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("registeredInStoreId")]
         public int RegisteredInStoreId { get; set; }
@@ -2301,10 +2301,10 @@ namespace MosadagClient
         public string IssuedTo { get; set; }
 
         [Newtonsoft.Json.JsonProperty("issuedAt")]
-        public System.DateTimeOffset IssuedAt { get; set; }
+        public System.DateTime IssuedAt { get; set; }
 
         [Newtonsoft.Json.JsonProperty("expiry")]
-        public System.DateTimeOffset Expiry { get; set; }
+        public System.DateTime Expiry { get; set; }
 
         [Newtonsoft.Json.JsonProperty("licenseType")]
         public string LicenseType { get; set; }
@@ -2440,10 +2440,10 @@ namespace MosadagClient
         public string FriendlyName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("createdAt")]
-        public System.DateTimeOffset CreatedAt { get; set; }
+        public System.DateTime CreatedAt { get; set; }
 
         [Newtonsoft.Json.JsonProperty("lastLoginDate")]
-        public System.DateTimeOffset LastLoginDate { get; set; }
+        public System.DateTime LastLoginDate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("appVersion")]
         public string AppVersion { get; set; }

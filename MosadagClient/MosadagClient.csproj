@@ -15,7 +15,7 @@
     <PackageTags>API, Ensight-tech</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyVersion></AssemblyVersion>
-    <Version>2.1.0.2</Version>
+    <Version>2.1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
