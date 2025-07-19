@@ -33,7 +33,7 @@ namespace MosadagClient
         /// </summary>
         /// <param name="token">The authorization token to set. If null or empty, the authorization header is removed.</param>
         /// <remarks>No return value.</remarks>
-        private void _SetNopAuthorize(string? token)
+        public void SetNopAuthorize(string? token)
         {
             if (!string.IsNullOrEmpty(token))
             {
@@ -46,7 +46,7 @@ namespace MosadagClient
         }
         public async Task Logout()
         {
-            _SetNopAuthorize(null);
+            SetNopAuthorize(null);
             await SupabaseClient.Auth.SignOut();
             DataService?.DestroySession();
         }
@@ -69,7 +69,7 @@ namespace MosadagClient
                 throw new Exception("Session is null");
             }
             var res = await NopcommerceClient.VerifySupbaseTokenAsync(new VerifySupbaseTokenModel() { DeviceData = deviceData, Token = session.AccessToken, PhoneNumber = session.User!.Phone, });
-            _SetNopAuthorize(res.Token);
+            SetNopAuthorize(res.Token);
             DataService?.SaveSession(new Model.LoginData() { NopcommerceToken = res.Token, Session = session });
             return res;
         }
@@ -90,7 +90,7 @@ namespace MosadagClient
             SupabaseClient.Auth.LoadSession();
             if (!string.IsNullOrEmpty(nopToken))
             {
-                _SetNopAuthorize(nopToken);
+                SetNopAuthorize(nopToken);
                 await RefreshToken();
             }
         }
